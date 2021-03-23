@@ -29,7 +29,8 @@ namespace MoodlePortal
                     sqlcon.Close();
                     return false;
                 }
-
+                else
+                    return true; //ako ne vratimo ovde true onda nije dobro
             }
             catch (Exception exc)
             {
@@ -40,7 +41,7 @@ namespace MoodlePortal
                 sqlcon.Close();
             }
 
-            return true;
+            return false;
         }
 
         public static bool Insert(int br_indeksa, string ime, string prezime, string email)

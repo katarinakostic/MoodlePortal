@@ -25,3 +25,4 @@ E:\c#VS\MoodlePortal\bin\Debug\MySql.Data.xml
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csproj.CopyComplete
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.exe
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.pdb
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csprojAssemblyReference.cache

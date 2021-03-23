@@ -50,8 +50,13 @@ namespace MoodlePortal
         {
             int br_indeksa;
             String ime, prezime, email;
-
-            br_indeksa = int.Parse(brindeksaBox.Text.ToString());
+            if (brindeksaBox.Text.Length > 0)
+                br_indeksa = int.Parse(brindeksaBox.Text.ToString());
+            else
+            {
+                MessageBox.Show("Unesite broj indeksa!");
+                return;
+            }
             ime = imeBox.Text.ToString();
             prezime = prezimeBox.Text.ToString();
             email = emailBox.Text.ToString();
@@ -87,6 +92,7 @@ namespace MoodlePortal
                 else
                 {
                     MessageBox.Show("Doslo je do greske prilikom brisanja studenta iz baze!");
+                    return;
                 }
             }
             else
