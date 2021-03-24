@@ -43,6 +43,9 @@ namespace MoodlePortal
             this.indeksDeleteTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.deleteBtn = new System.Windows.Forms.Button();
+            this.indeksSearchBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.searchBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listViewStudenti
@@ -59,7 +62,7 @@ namespace MoodlePortal
             // 
             this.prikaziStudenteBtn.Location = new System.Drawing.Point(84, 96);
             this.prikaziStudenteBtn.Name = "prikaziStudenteBtn";
-            this.prikaziStudenteBtn.Size = new System.Drawing.Size(187, 38);
+            this.prikaziStudenteBtn.Size = new System.Drawing.Size(156, 38);
             this.prikaziStudenteBtn.TabIndex = 1;
             this.prikaziStudenteBtn.Text = "Prikazi sve studente";
             this.prikaziStudenteBtn.UseVisualStyleBackColor = true;
@@ -165,10 +168,39 @@ namespace MoodlePortal
             this.deleteBtn.UseVisualStyleBackColor = true;
             this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
+            // indeksSearchBox
+            // 
+            this.indeksSearchBox.Location = new System.Drawing.Point(339, 112);
+            this.indeksSearchBox.Name = "indeksSearchBox";
+            this.indeksSearchBox.Size = new System.Drawing.Size(100, 22);
+            this.indeksSearchBox.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(336, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(170, 17);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Pretrazi po broju indeksa:";
+            // 
+            // searchBtn
+            // 
+            this.searchBtn.Location = new System.Drawing.Point(456, 96);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(76, 38);
+            this.searchBtn.TabIndex = 16;
+            this.searchBtn.Text = "SEARCH";
+            this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
             // UCStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.searchBtn);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.indeksSearchBox);
             this.Controls.Add(this.deleteBtn);
             this.Controls.Add(this.indeksDeleteTxt);
             this.Controls.Add(this.label5);
@@ -206,5 +238,8 @@ namespace MoodlePortal
         private System.Windows.Forms.TextBox indeksDeleteTxt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button deleteBtn;
+        private System.Windows.Forms.TextBox indeksSearchBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button searchBtn;
     }
 }

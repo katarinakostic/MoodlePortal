@@ -98,5 +98,37 @@ namespace MoodlePortal
             else
                 MessageBox.Show("Ne postoji student sa tim brojem indeksa!");
         }
+
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            
+            listViewStudenti.Clear();
+            int br_indeksa;
+
+            if (indeksSearchBox.Text.Length > 0)
+                br_indeksa = int.Parse(indeksSearchBox.Text.ToString());
+            else
+            {
+                MessageBox.Show("Unesite broj indeksa!");
+                return;
+            }
+            if (RadSaBazom.nadjiStudenta(br_indeksa))
+            {
+                Dictionary<int, String> studenti = RadSaBazom.SpisakStudenata();
+                foreach(var v in studenti)
+                    if(v.Key==br_indeksa)
+                    {
+                listViewStudenti.Items.Add(v.Value);
+                         break;
+                     }
+
+                //String podaciOStudentu = RadSaBazom.podaciOStudentu(br_indeksa);
+                //listViewStudenti.Items.Add(podaciOStudentu);
+
+            }
+            else
+                MessageBox.Show("Ne postoji student sa tim brojem indeksa!");
+            
+        }
     }
 }
