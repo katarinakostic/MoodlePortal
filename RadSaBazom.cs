@@ -17,8 +17,8 @@ namespace MoodlePortal
 
             sqlcon = DbConnection.GetConnection();
             //sqlcon = con;
-            try
-            {
+        //    try
+        //    {
                 sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
 
@@ -30,18 +30,18 @@ namespace MoodlePortal
                     return false;
                 }
                 else
+                {
+                    sqlcon.Close();
                     return true; //ako ne vratimo ovde true onda nije dobro
-            }
-            catch (Exception exc)
-            {
+                }
+          //  }
+        //    catch (Exception exc)
+        //    {
 
-            }
-            finally
-            {
-                sqlcon.Close();
-            }
+        //    }
+  
 
-            return false;
+      //      return false;
         }
 
         public static bool Insert(int br_indeksa, string ime, string prezime, string email)
@@ -96,29 +96,30 @@ namespace MoodlePortal
 
             sqlcon = DbConnection.GetConnection();
             //sqlcon = con;
-            try
-            {
-                sqlcon.Open();
+        //    try
+         //   {
+        //        sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
 
                 MySqlDataReader rd = cmd.ExecuteReader();
 
                 while (rd.Read())
                 {
-                    String podaciOStudentu = "Broj indeksa=" + rd[1].ToString() + ", " + rd[2].ToString() + " " + rd[3].ToString();
-                    //studenti.Add(int.Parse(rd[1].ToString()), podaciOStudentu);
-                    studenti.Add(1, "dfgh");
-                }
+                String podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                studenti.Add(int.Parse(rd[0].ToString()), podaciOStudentu);
+                //int i = 33;
+                    // studenti.Add(int.Parse(rd[0].ToString()), "m");
+            }
 
                 sqlcon.Close();
                 return studenti;
-            }
-            catch (Exception exc)
-            {
+      //      }
+      //      catch (Exception exc)
+      //      {
 
-            }
+       //     }
 
-            return studenti;
+          // return studenti;
         }
     }
 }

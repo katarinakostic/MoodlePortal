@@ -53,6 +53,7 @@ namespace MoodlePortal
             this.listViewStudenti.Size = new System.Drawing.Size(436, 290);
             this.listViewStudenti.TabIndex = 0;
             this.listViewStudenti.UseCompatibleStateImageBehavior = false;
+            this.listViewStudenti.View = System.Windows.Forms.View.List;
             // 
             // prikaziStudenteBtn
             // 

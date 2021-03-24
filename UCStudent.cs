@@ -12,7 +12,7 @@ namespace MoodlePortal
 {
     public partial class UCStudent : UserControl
     {
-        public Dictionary<int, String> studenti = new Dictionary<int, String>();
+        public Dictionary<int, string> studenti = new Dictionary<int, string>();
         AdminForm forma;
         public UCStudent(AdminForm forma)
         {
@@ -24,10 +24,10 @@ namespace MoodlePortal
         private void prikaziStudenteBtn_Click(object sender, EventArgs e)
         {
             studenti = RadSaBazom.SpisakStudenata();
-           /* if (RadSaBazom.nadjiStudenta(639))
+            if (RadSaBazom.nadjiStudenta(639))
                 MessageBox.Show("639 Postojii"); 
             else
-                MessageBox.Show("639 Ne postoji"); */
+                MessageBox.Show("639 Ne postoji"); 
             if (studenti.Count > 0)
             {
                 listViewStudenti.Show();
