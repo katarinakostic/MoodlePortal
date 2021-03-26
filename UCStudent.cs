@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using System.IO;
 
 namespace MoodlePortal
 {
@@ -23,27 +25,31 @@ namespace MoodlePortal
 
         private void prikaziStudenteBtn_Click(object sender, EventArgs e)
         {
+            if (listViewStudenti.Visible == true)
+                listViewStudenti.Clear();
+            
             studenti = RadSaBazom.SpisakStudenata();
-            if (RadSaBazom.nadjiStudenta(639))
-                MessageBox.Show("639 Postojii"); 
+            /* if (RadSaBazom.nadjiStudenta(639))
+                MessageBox.Show("639 Postojii"); //PROVERA
             else
-                MessageBox.Show("639 Ne postoji"); 
+                MessageBox.Show("639 Ne postoji"); */
             if (studenti.Count > 0)
             {
                 listViewStudenti.Show();
                 foreach (String podaci in studenti.Values)
                 {
 
-                    listViewStudenti.Items.Add(podaci);
-                    //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
+                     listViewStudenti.Items.Add(podaci);
+                     //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
                 }
             }
             else
             {
-                MessageBox.Show("Nema studenata!");
-                //forma.Controls.Add(prethodniProzor);
+                 MessageBox.Show("Nema studenata!");
+                    //forma.Controls.Add(prethodniProzor);
 
-            } 
+            }
+            
         }
 
         private void insertBtn_Click(object sender, EventArgs e)
@@ -70,6 +76,12 @@ namespace MoodlePortal
                 MessageBox.Show("Uspesno uneti podaci!");
             else
                 MessageBox.Show("Greska!");
+
+            if (listViewStudenti.Visible == true)
+            {
+                String podaciostudentu = RadSaBazom.podaciOStudentu(br_indeksa);
+                listViewStudenti.Items.Add(podaciostudentu);
+            }
         }
 
         private void deleteBtn_Click(object sender, EventArgs e)
@@ -130,5 +142,54 @@ namespace MoodlePortal
                 MessageBox.Show("Ne postoji student sa tim brojem indeksa!");
             
         }
+
+        private void imageBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.Filter = "Choose Image(*.jpg; *.png; *.gif)|*.jpg; *.png; *.gif";
+            if (opf.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Image = Image.FromFile(opf.FileName);
+                MemoryStream ms = new MemoryStream();
+                pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+                byte[] img = ms.ToArray();
+
+                int br_indeksa;
+                if (brindeksaBox.Text.Length > 0)
+                    br_indeksa = int.Parse(brindeksaBox.Text.ToString());
+                else
+                {
+                    MessageBox.Show("Unesite broj indeksa!");
+                    return;
+                }
+
+                RadSaBazom.sacuvajFotografiju(img, br_indeksa);
+            }
+        }
+   /*     private void reload()
+        {
+            listViewStudenti.Clear();
+            studenti = RadSaBazom.SpisakStudenata();
+            if (RadSaBazom.nadjiStudenta(639))
+                MessageBox.Show("639 Postojii");
+            else
+                MessageBox.Show("639 Ne postoji");
+            if (studenti.Count > 0)
+            {
+                listViewStudenti.Show();
+                foreach (String podaci in studenti.Values)
+                {
+
+                    listViewStudenti.Items.Add(podaci);
+                    //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nema studenata!");
+                //forma.Controls.Add(prethodniProzor);
+
+            }
+        } */
     }
 }

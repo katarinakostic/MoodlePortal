@@ -5,48 +5,89 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
+using System.Data.SqlClient;
+using System.Data;
+
 namespace MoodlePortal
 {
     class RadSaBazom
     {
         public static MySqlConnection sqlcon;
-        public static String connectionString = "datasource=localhost; username=root; password=; database=moodleDb";
+        public static String connectionString = "datasource=localhost; username=root; password=; database=moodleDb;";
         public static bool nadjiStudenta(int br_indeksa)
         {
 
             String query = String.Format("SELECT * FROM studenti WHERE br_indeksa='{0}'", br_indeksa);
             sqlcon = new MySqlConnection(connectionString);
+            bool exists = false;
 
             //sqlcon = DbConnection.GetConnection();
             //sqlcon = con;
+
+            MySqlDataReader reader;
             try
            {
                 sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
 
-                if (!reader.HasRows)
-                {
-                    sqlcon.Close();
-                    return false;
-                }
-                else
-                {
-                    sqlcon.Close();
-                    return true; //ako ne vratimo ovde true onda nije dobro
-                }
+                if (reader.HasRows)               
+                    exists = true; //ako ne vratimo ovde true onda nije dobro
+                reader.Close();
+
             }
-            catch (Exception exc)
+            catch (SqlException ex)
             {
-
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
             }
             finally
             {
                 sqlcon.Close();
             }
 
-            return false;
+            return exists;
+        }
+
+        internal static bool checkUser(String username, String pass)
+        {
+            //SELECT EXISTS( select * from login where username='admin' )
+            String query = String.Format("SELECT EXISTS( select * from login where username='{0}' AND password='{1}')", username, pass);
+            sqlcon = new MySqlConnection(connectionString);
+            //int n = 0;
+            bool exists = false;
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                    exists = true;
+                    //n = int.Parse(reader[0].ToString());
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return exists;
+            // if (n > 0)
+            //     return true;
+            // else
+            //      return false;
+
         }
 
         public static bool Insert(int br_indeksa, string ime, string prezime, string email)
@@ -60,16 +101,20 @@ namespace MoodlePortal
                 sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+                //MySqlDataReader reader = cmd.ExecuteReader();
 
                 cmd.ExecuteNonQuery();
                 //sqlcon.Close();
                 ok=true;
+                //reader.Close();
 
             }
-            catch (Exception exc)
+            catch (SqlException ex)
             {
-                
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
             }
             finally
             {
@@ -94,9 +139,12 @@ namespace MoodlePortal
                 ok = true;
 
             }
-            catch (Exception exc)
+            catch (SqlException ex)
             {
-
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
             }
             finally
             {
@@ -114,11 +162,13 @@ namespace MoodlePortal
             //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
             //sqlcon = con;
-                try
-              {
-                    sqlcon.Open();
-            MySqlCommand cmd = new MySqlCommand(query, sqlcon);
 
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                //MySqlDataReader rd = cmd.ExecuteReader();
                 MySqlDataReader rd = cmd.ExecuteReader();
 
                 while (rd.Read())
@@ -129,11 +179,14 @@ namespace MoodlePortal
                     // studenti.Add(int.Parse(rd[0].ToString()), "m");
             }
 
-                //sqlcon.Close();
-                //return studenti;
+                rd.Close();
             }
-            catch (Exception exc)
+            catch (SqlException ex)
             {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
             }
             finally
             {
@@ -152,8 +205,10 @@ namespace MoodlePortal
             //    try
             //   {
             //        sqlcon.Open();
+
             try
             {
+                sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
                 //if (sqlcon.Close())
                 //    sqlcon.Open();
@@ -162,29 +217,51 @@ namespace MoodlePortal
                 while (rd.Read())
                 {
                     podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-
-                    //int i = 33;
-                    // studenti.Add(int.Parse(rd[0].ToString()), "m");
                 }
 
-                
+                rd.Close();
             }
-            catch (Exception e)
+            catch (SqlException ex)
             {
-                
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
             }
             finally
             {
                 sqlcon.Close();
             }
             return podaciOStudentu;
-            //      }
-            //      catch (Exception exc)
-            //      {
+        }
 
-            //     }
+        internal static void sacuvajFotografiju(byte[] img, int br_indeksa)
+        {
+            //UPDATE studenti SET ime="kaca" WHERE br_indeksa=639
+            String query = String.Format("UPDATE studenti SET fotografija='{0}' WHERE br_indeksa='{1}'", img, br_indeksa);
 
-            // return studenti;
+            //sqlcon = DbConnection.GetConnection();
+            sqlcon = new MySqlConnection(connectionString);
+            //sqlcon = con;
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+
         }
     }
 }

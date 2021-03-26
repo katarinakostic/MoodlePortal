@@ -46,6 +46,9 @@ namespace MoodlePortal
             this.indeksSearchBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.searchBtn = new System.Windows.Forms.Button();
+            this.imageBtn = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewStudenti
@@ -194,10 +197,30 @@ namespace MoodlePortal
             this.searchBtn.UseVisualStyleBackColor = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
+            // imageBtn
+            // 
+            this.imageBtn.Location = new System.Drawing.Point(257, 531);
+            this.imageBtn.Name = "imageBtn";
+            this.imageBtn.Size = new System.Drawing.Size(95, 33);
+            this.imageBtn.TabIndex = 17;
+            this.imageBtn.Text = "fotografija";
+            this.imageBtn.UseVisualStyleBackColor = true;
+            this.imageBtn.Click += new System.EventHandler(this.imageBtn_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(550, 248);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 18;
+            this.pictureBox1.TabStop = false;
+            // 
             // UCStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.imageBtn);
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.indeksSearchBox);
@@ -217,6 +240,7 @@ namespace MoodlePortal
             this.Controls.Add(this.listViewStudenti);
             this.Name = "UCStudent";
             this.Size = new System.Drawing.Size(725, 589);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,5 +265,7 @@ namespace MoodlePortal
         private System.Windows.Forms.TextBox indeksSearchBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button searchBtn;
+        private System.Windows.Forms.Button imageBtn;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

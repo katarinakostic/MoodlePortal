@@ -26,7 +26,8 @@ namespace MoodlePortal
                 MessageBox.Show("Niste uneli sve podatke!");
 
             }
-            else if (adminUsername.Text == "admin" || password.Text == "admin")
+            //else if (adminUsername.Text == "admin" || password.Text == "admin")
+            else if(RadSaBazom.checkUser(adminUsername.Text.ToString(), password.Text.ToString()))
             {
                 MessageBox.Show("Uspesno ste se ulogovali kao admin!");
                 Form forma = new AdminForm();
