@@ -36,6 +36,8 @@ namespace MoodlePortal
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.izlazBtn = new System.Windows.Forms.Button();
+            this.hashBox = new System.Windows.Forms.TextBox();
+            this.saltBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,11 +105,27 @@ namespace MoodlePortal
             this.izlazBtn.UseVisualStyleBackColor = true;
             this.izlazBtn.Click += new System.EventHandler(this.izlazBtn_Click);
             // 
+            // hashBox
+            // 
+            this.hashBox.Location = new System.Drawing.Point(555, 262);
+            this.hashBox.Name = "hashBox";
+            this.hashBox.Size = new System.Drawing.Size(233, 22);
+            this.hashBox.TabIndex = 6;
+            // 
+            // saltBox
+            // 
+            this.saltBox.Location = new System.Drawing.Point(555, 225);
+            this.saltBox.Name = "saltBox";
+            this.saltBox.Size = new System.Drawing.Size(233, 22);
+            this.saltBox.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.saltBox);
+            this.Controls.Add(this.hashBox);
             this.Controls.Add(this.izlazBtn);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -115,6 +133,7 @@ namespace MoodlePortal
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,6 +145,8 @@ namespace MoodlePortal
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button izlazBtn;
+        private System.Windows.Forms.TextBox hashBox;
+        private System.Windows.Forms.TextBox saltBox;
     }
 }
 

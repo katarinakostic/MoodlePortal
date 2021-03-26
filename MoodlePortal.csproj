@@ -69,6 +69,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadSaBazom.cs" />
+    <Compile Include="SecurityLogin.cs" />
     <Compile Include="UCAdminPocetna.cs">
       <SubType>UserControl</SubType>
     </Compile>

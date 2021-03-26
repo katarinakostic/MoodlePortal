@@ -30,10 +30,12 @@ namespace MoodlePortal
             else if(RadSaBazom.checkUser(adminUsername.Text.ToString(), password.Text.ToString()))
             {
                 MessageBox.Show("Uspesno ste se ulogovali kao admin!");
+
                 Form forma = new AdminForm();
                 this.Hide();
                 forma.ShowDialog();
-                this.Close();
+                this.Close(); 
+                //GenSaltSHA256();
 
             }
             else
@@ -52,5 +54,39 @@ namespace MoodlePortal
         {
             Application.Exit();
         }
+/*        private void GenSaltSHA256()
+        {
+            String salt = CreateSalt(10);
+            String hashed_password = GenerateSHA256Hash(password.Text.ToString(), salt);
+
+            saltBox.Text = salt.Length.ToString();
+            hashBox.Text = hashed_password;
+        }
+
+        public String CreateSalt(int size)
+        {
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            var buff = new byte[size];
+            rng.GetBytes(buff);
+            return Convert.ToBase64String(buff);
+        }
+
+        public String GenerateSHA256Hash(String input, String salt)
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input + salt);
+            System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
+
+            byte[] hash = sha256hashstring.ComputeHash(bytes);
+
+            return ByteArrayToHexString(hash);
+            //return hash.ToString();
+        }
+        public static string ByteArrayToHexString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+                hex.AppendFormat("{0:x2}", b);
+            return hex.ToString();
+        } */
     }
 }

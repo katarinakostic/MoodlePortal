@@ -48,6 +48,10 @@ namespace MoodlePortal
             this.searchBtn = new System.Windows.Forms.Button();
             this.imageBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.saltBox = new System.Windows.Forms.TextBox();
+            this.hashBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -215,10 +219,46 @@ namespace MoodlePortal
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // saltBox
+            // 
+            this.saltBox.Location = new System.Drawing.Point(242, 4);
+            this.saltBox.Name = "saltBox";
+            this.saltBox.Size = new System.Drawing.Size(177, 22);
+            this.saltBox.TabIndex = 19;
+            // 
+            // hashBox
+            // 
+            this.hashBox.Location = new System.Drawing.Point(242, 32);
+            this.hashBox.Name = "hashBox";
+            this.hashBox.Size = new System.Drawing.Size(177, 22);
+            this.hashBox.TabIndex = 20;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(124, 4);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 17);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "SALT";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(124, 32);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(88, 17);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "PASSWORD";
+            // 
             // UCStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.hashBox);
+            this.Controls.Add(this.saltBox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.imageBtn);
             this.Controls.Add(this.searchBtn);
@@ -267,5 +307,9 @@ namespace MoodlePortal
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.Button imageBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox saltBox;
+        private System.Windows.Forms.TextBox hashBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

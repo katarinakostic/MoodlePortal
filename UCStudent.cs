@@ -10,12 +10,15 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.IO;
 
+using System.Security.Cryptography;
+
 namespace MoodlePortal
 {
     public partial class UCStudent : UserControl
     {
         public Dictionary<int, string> studenti = new Dictionary<int, string>();
         AdminForm forma;
+
         public UCStudent(AdminForm forma)
         {
             InitializeComponent();
@@ -72,10 +75,15 @@ namespace MoodlePortal
                 MessageBox.Show("Ovaj student je vec u bazi!");
                 return;
             }
-            if (RadSaBazom.Insert(br_indeksa, ime, prezime, email))
+            //if (RadSaBazom.Insert(br_indeksa, ime, prezime, email))
+            //    MessageBox.Show("Uspesno uneti podaci!");
+            String username = ime + br_indeksa; //PROMENI
+            SecurityLogin secLog = new SecurityLogin();
+
+            if (RadSaBazom.Insert(br_indeksa, ime, prezime, email) && RadSaBazom.InsertLoginData(br_indeksa, username, secLog.GenSaltSHA256(username), 2))
                 MessageBox.Show("Uspesno uneti podaci!");
             else
-                MessageBox.Show("Greska!");
+                        MessageBox.Show("Greska!");
 
             if (listViewStudenti.Visible == true)
             {
@@ -166,30 +174,42 @@ namespace MoodlePortal
                 RadSaBazom.sacuvajFotografiju(img, br_indeksa);
             }
         }
-   /*     private void reload()
+        
+        /*
+        private String GenSaltSHA256(String pass_input)
         {
-            listViewStudenti.Clear();
-            studenti = RadSaBazom.SpisakStudenata();
-            if (RadSaBazom.nadjiStudenta(639))
-                MessageBox.Show("639 Postojii");
-            else
-                MessageBox.Show("639 Ne postoji");
-            if (studenti.Count > 0)
-            {
-                listViewStudenti.Show();
-                foreach (String podaci in studenti.Values)
-                {
+            String salt = CreateSalt(10);
+            String hashed_password = salt.Substring(0,8)+GenerateSHA256Hash(pass_input, salt)+salt.Substring(8,8);
 
-                    listViewStudenti.Items.Add(podaci);
-                    //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Nema studenata!");
-                //forma.Controls.Add(prethodniProzor);
+            //saltBox.Text = salt;
+            //hashBox.Text = hashed_password;
 
-            }
+            return hashed_password;
+        }
+
+        public String CreateSalt(int size)
+        {
+            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            var buff = new byte[size];
+            rng.GetBytes(buff);
+            return Convert.ToBase64String(buff);
+        }
+
+        public String GenerateSHA256Hash(String input, String salt)
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input + salt);
+            System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
+
+            byte[] hash = sha256hashstring.ComputeHash(bytes);
+
+            return ByteArrayToHexString(hash);
+        }
+        public static string ByteArrayToHexString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+                hex.AppendFormat("{0:x2}", b);
+            return hex.ToString();
         } */
     }
 }
