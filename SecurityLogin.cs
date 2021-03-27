@@ -25,7 +25,8 @@ namespace MoodlePortal
         public String CheckValue(String username, String pass_input)
         {
             //pronaci salt vrednost iz baze
-            String salt = RadSaBazom.getSalt(username);
+            //String salt = RadSaBazomNastavnik.getSalt(username);
+            String salt = RadSaBazomLogin.getSalt(username);
 
             String hashed_password = salt.Substring(0, 8) + GenerateSHA256Hash(pass_input, salt) + salt.Substring(8, 8);
 

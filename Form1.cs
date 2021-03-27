@@ -33,14 +33,14 @@ namespace MoodlePortal
                 MessageBox.Show("Niste uneli sve podatke!");
 
             }
-
-            else if(RadSaBazom.checkUser(uname_input, secLog.CheckValue(uname_input, pass_input)))
+            //RadSaBazomLogin.findUser(String uname_input)
+            else if(RadSaBazomLogin.findUser(uname_input) && RadSaBazomLogin.checkUser(uname_input, secLog.CheckValue(uname_input, pass_input)))
             {
                 //provera tipa naloga : da li se ulogovao admin, student ili nastavnik (1, 2, 3)
                 //zameni za switch posle
                 Form forma;
 
-                switch (RadSaBazom.GetAccountType(adminUsername.Text.ToString()))
+                switch (RadSaBazomLogin.GetAccountType(adminUsername.Text.ToString()))
                 {
                     case 1: //ovo treba da bude 1, promeni vr u bazi
                         MessageBox.Show("Uspesno ste se ulogovali kao admin!");

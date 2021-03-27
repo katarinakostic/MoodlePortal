@@ -73,6 +73,7 @@ namespace MoodlePortal
             this.nastavnikBtn.TabIndex = 6;
             this.nastavnikBtn.Text = "NASTAVNICI";
             this.nastavnikBtn.UseVisualStyleBackColor = true;
+            this.nastavnikBtn.Click += new System.EventHandler(this.nastavnikBtn_Click);
             // 
             // kursBtn
             // 

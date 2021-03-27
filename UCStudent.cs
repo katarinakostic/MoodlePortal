@@ -31,7 +31,7 @@ namespace MoodlePortal
             if (listViewStudenti.Visible == true)
                 listViewStudenti.Clear();
             
-            studenti = RadSaBazom.SpisakStudenata();
+            studenti = RadSaBazomStudent.SpisakStudenata();
             /* if (RadSaBazom.nadjiStudenta(639))
                 MessageBox.Show("639 Postojii"); //PROVERA
             else
@@ -70,7 +70,7 @@ namespace MoodlePortal
             prezime = prezimeBox.Text.ToString();
             email = emailBox.Text.ToString();
 
-            if(RadSaBazom.nadjiStudenta(br_indeksa))
+            if(RadSaBazomStudent.nadjiStudenta(br_indeksa))
             {
                 MessageBox.Show("Ovaj student je vec u bazi!");
                 return;
@@ -80,14 +80,14 @@ namespace MoodlePortal
             String username = ime + br_indeksa; //PROMENI
             SecurityLogin secLog = new SecurityLogin();
 
-            if (RadSaBazom.Insert(br_indeksa, ime, prezime, email) && RadSaBazom.InsertLoginData(br_indeksa, username, secLog.GenSaltSHA256(username), 2))
+            if (RadSaBazomStudent.Insert(br_indeksa, ime, prezime, email) && RadSaBazomStudent.InsertLoginData(br_indeksa, username, secLog.GenSaltSHA256(username), 2))
                 MessageBox.Show("Uspesno uneti podaci!");
             else
                         MessageBox.Show("Greska!");
 
             if (listViewStudenti.Visible == true)
             {
-                String podaciostudentu = RadSaBazom.podaciOStudentu(br_indeksa);
+                String podaciostudentu = RadSaBazomStudent.podaciOStudentu(br_indeksa);
                 listViewStudenti.Items.Add(podaciostudentu);
             }
         }
@@ -103,9 +103,9 @@ namespace MoodlePortal
                 MessageBox.Show("Unesite broj indeksa!");
                 return;
             }
-            if (RadSaBazom.nadjiStudenta(br_indeksa))
+            if (RadSaBazomStudent.nadjiStudenta(br_indeksa))
             {
-                if (RadSaBazom.Obrisi(br_indeksa))
+                if (RadSaBazomStudent.Obrisi(br_indeksa))
                 {
                     MessageBox.Show("Uspesno obrisan student!");
                 }
@@ -132,9 +132,9 @@ namespace MoodlePortal
                 MessageBox.Show("Unesite broj indeksa!");
                 return;
             }
-            if (RadSaBazom.nadjiStudenta(br_indeksa))
+            if (RadSaBazomStudent.nadjiStudenta(br_indeksa))
             {
-                Dictionary<int, String> studenti = RadSaBazom.SpisakStudenata();
+                Dictionary<int, String> studenti = RadSaBazomStudent.SpisakStudenata();
                 foreach(var v in studenti)
                     if(v.Key==br_indeksa)
                     {
@@ -171,10 +171,16 @@ namespace MoodlePortal
                     return;
                 }
 
-                RadSaBazom.sacuvajFotografiju(img, br_indeksa);
+                RadSaBazomStudent.sacuvajFotografiju(img, br_indeksa);
             }
         }
-        
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            forma.Controls.Remove(this);
+            forma.Controls.Add(new UCTeacherCrud(forma));
+        }
+
         /*
         private String GenSaltSHA256(String pass_input)
         {
