@@ -104,6 +104,78 @@ namespace MoodlePortal
             return ok;
         }
 
+        internal static Dictionary<int, string> SpisakNastavnika()
+        {
+            String query = "SELECT * FROM nastavnik";
+            Dictionary<int, String> nastavnici = new Dictionary<int, String>();
+
+            sqlcon = new MySqlConnection(connectionString);
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                MySqlDataReader rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    String podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                    nastavnici.Add(int.Parse(rd[0].ToString()), podaciONastavniku);
+                }
+
+                rd.Close();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+
+            return nastavnici;
+        }
+
+        internal static bool Obrisi(int jmbg)
+        {
+            String query = String.Format("DELETE FROM nastavnik WHERE jmbg_nastavnika='{0}'", jmbg);
+            String query2 = String.Format("DELETE FROM login WHERE id_naloga='{0}'", jmbg);
+            //sqlcon = DbConnection.GetConnection();
+            sqlcon = new MySqlConnection(connectionString);
+            bool ok = false;
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+                MySqlCommand cmd2 = new MySqlCommand(query2, sqlcon);
+
+                cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
+                ok = true;
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query2);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return ok;
+        }
+
         internal static string podaciONastavniku(int jmbg)
         {
             String query = String.Format("SELECT * FROM nastavnik WHERE jmbg_nastavnika = '{0}' ", jmbg);

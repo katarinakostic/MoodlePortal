@@ -50,7 +50,7 @@ namespace MoodlePortal
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.insertBtn = new System.Windows.Forms.Button();
-            this.prikaziStudenteBtn = new System.Windows.Forms.Button();
+            this.prikaziNastavnikeBtn = new System.Windows.Forms.Button();
             this.listViewNastavnici = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -112,6 +112,7 @@ namespace MoodlePortal
             this.searchBtn.TabIndex = 39;
             this.searchBtn.Text = "SEARCH";
             this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
             // label6
             // 
@@ -137,6 +138,7 @@ namespace MoodlePortal
             this.deleteBtn.TabIndex = 36;
             this.deleteBtn.Text = "OBRISI";
             this.deleteBtn.UseVisualStyleBackColor = true;
+            this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
             // jmbgDeleteTxt
             // 
@@ -228,14 +230,15 @@ namespace MoodlePortal
             this.insertBtn.UseVisualStyleBackColor = true;
             this.insertBtn.Click += new System.EventHandler(this.insertBtn_Click);
             // 
-            // prikaziStudenteBtn
+            // prikaziNastavnikeBtn
             // 
-            this.prikaziStudenteBtn.Location = new System.Drawing.Point(112, 106);
-            this.prikaziStudenteBtn.Name = "prikaziStudenteBtn";
-            this.prikaziStudenteBtn.Size = new System.Drawing.Size(156, 38);
-            this.prikaziStudenteBtn.TabIndex = 24;
-            this.prikaziStudenteBtn.Text = "Prikazi sve nastavnike";
-            this.prikaziStudenteBtn.UseVisualStyleBackColor = true;
+            this.prikaziNastavnikeBtn.Location = new System.Drawing.Point(112, 106);
+            this.prikaziNastavnikeBtn.Name = "prikaziNastavnikeBtn";
+            this.prikaziNastavnikeBtn.Size = new System.Drawing.Size(156, 38);
+            this.prikaziNastavnikeBtn.TabIndex = 24;
+            this.prikaziNastavnikeBtn.Text = "Prikazi sve nastavnike";
+            this.prikaziNastavnikeBtn.UseVisualStyleBackColor = true;
+            this.prikaziNastavnikeBtn.Click += new System.EventHandler(this.prikaziNastavnikeBtn_Click);
             // 
             // listViewNastavnici
             // 
@@ -273,7 +276,7 @@ namespace MoodlePortal
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.insertBtn);
-            this.Controls.Add(this.prikaziStudenteBtn);
+            this.Controls.Add(this.prikaziNastavnikeBtn);
             this.Name = "UCTeacherCrud";
             this.Size = new System.Drawing.Size(725, 589);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -305,7 +308,7 @@ namespace MoodlePortal
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button insertBtn;
-        private System.Windows.Forms.Button prikaziStudenteBtn;
+        private System.Windows.Forms.Button prikaziNastavnikeBtn;
         private System.Windows.Forms.ListView listViewNastavnici;
     }
 }
