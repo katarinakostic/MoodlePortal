@@ -20,27 +20,53 @@ namespace MoodlePortal
 
         private void loginAsAdmin_Click(object sender, EventArgs e)
         {
+            SecurityLogin secLog = new SecurityLogin();
 
-            if (adminUsername.Text.Length < 1 || password.Text.Length < 1)
+            String uname_input = adminUsername.Text.ToString();
+            String pass_input = password.Text.ToString();
+            //String check_pass = secLog.CheckValue(uname_input, pass_input); //na osnovu unetog passworda, generise se hash vrednost koja se spaja sa salt-om iz baze i proverava se da li se ta vrednost poklapa sa passwordom u bazi
+            //MessageBox.Show(check_pass + "uneti pass - hash"); //ovo radi
+
+
+            if (uname_input.Length < 1 || pass_input.Length < 1)
             {
                 MessageBox.Show("Niste uneli sve podatke!");
 
             }
-            //else if (adminUsername.Text == "admin" || password.Text == "admin")
-            else if(RadSaBazom.checkUser(adminUsername.Text.ToString(), password.Text.ToString()))
-            {
-                MessageBox.Show("Uspesno ste se ulogovali kao admin!");
 
-                Form forma = new AdminForm();
-                this.Hide();
-                forma.ShowDialog();
-                this.Close(); 
+            else if(RadSaBazom.checkUser(uname_input, secLog.CheckValue(uname_input, pass_input)))
+            {
+                //provera tipa naloga : da li se ulogovao admin, student ili nastavnik (1, 2, 3)
+                //zameni za switch posle
+                Form forma;
+
+                switch (RadSaBazom.GetAccountType(adminUsername.Text.ToString()))
+                {
+                    case 1: //ovo treba da bude 1, promeni vr u bazi
+                        MessageBox.Show("Uspesno ste se ulogovali kao admin!");
+
+                        forma = new AdminForm();
+                        this.Hide();
+                        forma.ShowDialog();
+                        this.Close();
+                        break;
+                    case 2:
+                        MessageBox.Show("Uspesno ste se ulogovali kao student!");
+                        break;
+                    case 3:
+                        MessageBox.Show("Uspesno ste se ulogovali kao nastavnik!");
+                        break;
+                    default:
+                        MessageBox.Show("Greska!");
+                        break;
+                }
+
                 //GenSaltSHA256();
 
             }
             else
             {
-                MessageBox.Show("Pogresan format!");
+                MessageBox.Show("Netacan username ili password!");
             }
         }
 

@@ -19,6 +19,20 @@ namespace MoodlePortal
             return hashed_password;
         }
 
+
+        //na osnovu unetog passworda, generise se hash vrednost koja se spaja sa salt-om iz baze 
+        //i proverava se da li se ta vrednost poklapa sa passwordom u bazi
+        public String CheckValue(String username, String pass_input)
+        {
+            //pronaci salt vrednost iz baze
+            String salt = RadSaBazom.getSalt(username);
+
+            String hashed_password = salt.Substring(0, 8) + GenerateSHA256Hash(pass_input, salt) + salt.Substring(8, 8);
+
+            return hashed_password;
+
+        }
+
         public String CreateSalt(int size)
         {
             var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();

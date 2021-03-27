@@ -51,10 +51,11 @@ namespace MoodlePortal
 
             return exists;
         }
-
+        
         internal static bool checkUser(String username, String pass)
         {
             //SELECT EXISTS( select * from login where username='admin' )
+            //exists vraca 0 ako ne postoji i 1 ako postoji!
             String query = String.Format("SELECT EXISTS( select * from login where username='{0}' AND password='{1}')", username, pass);
             sqlcon = new MySqlConnection(connectionString);
             //int n = 0;
@@ -67,8 +68,10 @@ namespace MoodlePortal
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.HasRows)
-                    exists = true;
+                if (reader.Read())
+                    if(int.Parse(reader[0].ToString())>0)
+                        exists = true;
+                
                     //n = int.Parse(reader[0].ToString());
             }
             catch (SqlException ex)
@@ -83,10 +86,6 @@ namespace MoodlePortal
                 sqlcon.Close();
             }
             return exists;
-            // if (n > 0)
-            //     return true;
-            // else
-            //      return false;
 
         }
 
@@ -299,6 +298,80 @@ namespace MoodlePortal
             {
                 sqlcon.Close();
             }
+        }
+
+        //vraca tip naloga da bismo znali na koju stranu da preusmerimo nakon uspesnog logovanja
+        //1-za admina, 2-za studenta, 3-za nastavnika
+        internal static int GetAccountType(String username)
+        {
+            //SELECT account_type FROM `login` WHERE username="admin"
+            String query = String.Format("SELECT account_type FROM `login` WHERE username='{0}'", username);
+            sqlcon = new MySqlConnection(connectionString);
+            int acc_type=-1; //ako vrati -1 nije lepo izvrsena provera
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                MySqlDataReader rd = cmd.ExecuteReader();
+
+                if (rd.Read())
+                    acc_type = int.Parse(rd[0].ToString());
+
+                rd.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return acc_type;
+        }
+        internal static String getSalt(String username)
+        {
+            String salt = "";
+
+            String query = String.Format("SELECT password FROM `login` WHERE username='{0}'", username);
+            sqlcon = new MySqlConnection(connectionString);
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                MySqlDataReader rd = cmd.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    String pass = rd[0].ToString();
+                    int len = pass.Length;
+                    salt = pass.Substring(0, 8) + pass.Substring(len - 8, 8);
+                }
+
+                rd.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+
+            return salt;
 
         }
     }
