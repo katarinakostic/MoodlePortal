@@ -5,6 +5,7 @@ E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.NastavnikProfil.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.Properties.Resources.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.StudentProfil.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.UCAdminPocetna.resources
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.UCKursCrud.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.UCStudent.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.UCTeacherCrud.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csproj.GenerateResource.cache
@@ -28,3 +29,5 @@ E:\c#VS\MoodlePortal\bin\Debug\MySql.Data.xml
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csproj.CopyComplete
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.exe
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.pdb
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csprojAssemblyReference.cache
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.KursProfil.resources

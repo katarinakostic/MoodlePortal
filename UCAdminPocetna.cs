@@ -40,6 +40,12 @@ namespace MoodlePortal
             forma.Controls.Add(new UCTeacherCrud(forma));
         }
 
+        private void kursBtn_Click(object sender, EventArgs e)
+        {
+            forma.Controls.Remove(this);
+            forma.Controls.Add(new UCKursCrud(forma));
+        }
+
         /*
            private void nazadBtn_Click(object sender, EventArgs e)
         {

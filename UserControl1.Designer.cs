@@ -83,6 +83,7 @@ namespace MoodlePortal
             this.kursBtn.TabIndex = 5;
             this.kursBtn.Text = "KURSEVI";
             this.kursBtn.UseVisualStyleBackColor = true;
+            this.kursBtn.Click += new System.EventHandler(this.kursBtn_Click);
             // 
             // UCAdminPocetna
             // 
