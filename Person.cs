@@ -17,7 +17,7 @@ namespace MoodlePortal
             Person_id = id;
             Ime = ime;
             Prezime = prezime;
-            Email = Email;
+            Email = email;
         }
         public Person(long id)
         {

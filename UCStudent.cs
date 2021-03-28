@@ -19,7 +19,7 @@ namespace MoodlePortal
         public Student currentStudent = null;
         byte[] img = null;
 
-        public Dictionary<int, string> studenti = new Dictionary<int, string>();
+        //public Dictionary<int, string> studenti = new Dictionary<int, string>();
         AdminForm forma;
 
         public UCStudent(AdminForm forma)
@@ -29,25 +29,13 @@ namespace MoodlePortal
             listViewStudenti.Hide();
         }
 
-        private void prikaziStudenteBtn_Click(object sender, EventArgs e)
+        private void LoadAll()
         {
-            /*   List<User> users = User.GetUsers();
-
-               listViewUsers.Items.Clear();
-               foreach (User u in users)
-               {
-                   // ListViewItem item = new ListViewItem(new String[] {u.Id.ToString(), u.Username, u.Password }); 
-                   ListViewItem item = new ListViewItem(u.Id.ToString() + ", " + u.Username + ", " + u.Password);
-                   item.Tag = u;
-                   listViewUsers.Items.Add(item);
-
-               } */
-
             List<Student> studenti = RadSaBazomStudent.SpisakStudenata();
 
             if (listViewStudenti.Visible == true)
                 listViewStudenti.Clear();
-            
+
             /* if (RadSaBazom.nadjiStudenta(639))
                 MessageBox.Show("639 Postojii"); //PROVERA
             else
@@ -62,15 +50,20 @@ namespace MoodlePortal
                     listViewStudenti.Items.Add(item);
 
                     //listViewStudenti.Items.Add(podaci);
-                     //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
+                    //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
                 }
             }
             else
             {
-                 MessageBox.Show("Nema studenata!");
-                    //forma.Controls.Add(prethodniProzor);
+                MessageBox.Show("Nema studenata!");
+                //forma.Controls.Add(prethodniProzor);
 
             }
+        }
+        private void prikaziStudenteBtn_Click(object sender, EventArgs e)
+        {
+
+            LoadAll();           
             
         }
 
@@ -107,16 +100,19 @@ namespace MoodlePortal
                             RadSaBazomStudent.sacuvajFotografiju(img, br_indeksa);
                         currentStudent = new Student(br_indeksa, ime, prezime, email);
                         MessageBox.Show("Uspesno uneti podaci!");
+                        if (!listViewStudenti.Visible)
+                            listViewStudenti.Show();
+                        LoadAll();
                     }
             }
             else
                 MessageBox.Show("Greska!");
 
-            if (listViewStudenti.Visible == true)
+         /*   if (listViewStudenti.Visible == true)
             {
                 Student s = RadSaBazomStudent.podaciOStudentu(br_indeksa);
                 listViewStudenti.Items.Add(s.Person_id.ToString() + ", " + s.Ime + ", " + s.Prezime + ", " + s.Email);
-            }
+            } */
         }
 
         private void deleteBtn_Click(object sender, EventArgs e)
@@ -135,6 +131,7 @@ namespace MoodlePortal
                 if (RadSaBazom.Obrisi(br_indeksa))
                 {
                     MessageBox.Show("Uspesno obrisan student!");
+                    LoadAll();
                 }
                 else
                 {

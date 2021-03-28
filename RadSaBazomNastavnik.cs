@@ -76,10 +76,10 @@ namespace MoodlePortal
         }
 
 
-        internal static Dictionary<long, string> SpisakNastavnika()
+        internal static List<Nastavnik> SpisakNastavnika()
         {
             String query = "SELECT * FROM nastavnik";
-            Dictionary<long, String> nastavnici = new Dictionary<long, String>();
+            List<Nastavnik> nastavnici = new List<Nastavnik>();
 
             sqlcon = new MySqlConnection(connectionString);
 
@@ -92,8 +92,14 @@ namespace MoodlePortal
 
                 while (rd.Read())
                 {
+                    long jmbg = (long)rd["jmbg_nastavnika"];
+                    String ime = rd["ime"].ToString();
+                    String prezime = rd["prezime"].ToString();
+                    String email = rd["email"].ToString();
                     String podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-                    nastavnici.Add(Int64.Parse(rd[0].ToString()), podaciONastavniku);
+                    
+                    Nastavnik n = new Nastavnik(jmbg, ime, prezime, email);
+                    nastavnici.Add(n);
                 }
 
                 rd.Close();
@@ -113,10 +119,10 @@ namespace MoodlePortal
             return nastavnici;
         }
 
-        internal static string podaciONastavniku(long jmbg)
+        internal static Nastavnik podaciONastavniku(long jmbg)
         {
             String query = String.Format("SELECT * FROM nastavnik WHERE jmbg_nastavnika = '{0}' ", jmbg);
-            String podaciONastavniku = "";
+            Nastavnik podaciONastavniku = null;
             
             sqlcon = new MySqlConnection(connectionString);
 
@@ -128,7 +134,8 @@ namespace MoodlePortal
 
                 while (rd.Read())
                 {
-                    podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                    //podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                    podaciONastavniku = new Nastavnik(Int64.Parse(rd[0].ToString()), rd[1].ToString(), rd[2].ToString(), rd[3].ToString());
                 }
 
                 rd.Close();
@@ -145,6 +152,33 @@ namespace MoodlePortal
                 sqlcon.Close();
             }
             return podaciONastavniku;
+        }
+        internal static void sacuvajFotografiju(byte[] img, long jmbg)
+        {
+            //UPDATE studenti SET ime="kaca" WHERE br_indeksa=639
+            String query = String.Format("UPDATE studenti SET fotografija='{0}' WHERE jmbg_nastavnika='{1}'", img, jmbg);
+
+            //sqlcon = DbConnection.GetConnection();
+            sqlcon = new MySqlConnection(connectionString);
+            //sqlcon = con;
+
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
         }
     }
 }

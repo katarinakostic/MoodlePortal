@@ -13,7 +13,10 @@ namespace MoodlePortal
     public partial class UCTeacherCrud : UserControl
     {
         AdminForm form;
-        public Dictionary<long, string> nastavnici = new Dictionary<long, string>();
+        //public Dictionary<long, string> nastavnici = new Dictionary<long, string>();
+        List<Nastavnik> nastavnici = new List<Nastavnik>();
+        public Nastavnik currentTeacher = null;
+        byte[] img = null;
         public UCTeacherCrud(AdminForm form)
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace MoodlePortal
         {
             long jmbg;
             String ime, prezime, email;
+            nastavnici = RadSaBazomNastavnik.SpisakNastavnika();
             if (jmbgBox.Text.Length > 0)
                 jmbg = Int64.Parse(jmbgBox.Text.ToString());
                 //if (long.TryParse(jmbgBox.Text.ToString()))
@@ -53,19 +57,27 @@ namespace MoodlePortal
             {
                 if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email))
                     if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 3, jmbg))
+                    {
+                        if (img != null)
+                            RadSaBazomNastavnik.sacuvajFotografiju(img, jmbg);
+                        currentTeacher = new Nastavnik(jmbg, ime, prezime, email);
                         MessageBox.Show("Uspesno uneti podaci!");
+                        if (!listViewNastavnici.Visible)
+                            listViewNastavnici.Show();
+                        LoadAll();
+                    }
             }
             else
                 MessageBox.Show("Greska!");
 
-            if (listViewNastavnici.Visible == true)
-            {
-                String podacionastavniku = RadSaBazomNastavnik.podaciONastavniku(jmbg);
-                listViewNastavnici.Items.Add(podacionastavniku);
-            }
         }
 
         private void prikaziNastavnikeBtn_Click(object sender, EventArgs e)
+        {
+            LoadAll();            
+        }
+
+        private void LoadAll()
         {
             if (listViewNastavnici.Visible == true)
                 listViewNastavnici.Clear();
@@ -78,17 +90,17 @@ namespace MoodlePortal
             if (nastavnici.Count > 0)
             {
                 listViewNastavnici.Show();
-                foreach (String podaci in nastavnici.Values)
+                foreach (Nastavnik n in nastavnici)
                 {
 
-                    listViewNastavnici.Items.Add(podaci);
-                    //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
+                    ListViewItem item = new ListViewItem(n.Person_id.ToString() + ", " + n.Ime + ", " + n.Prezime + ", " + n.Email);
+                    item.Tag = n;
+                    listViewNastavnici.Items.Add(item);
                 }
             }
             else
             {
                 MessageBox.Show("Nema nastavnika!");
-                //forma.Controls.Add(prethodniProzor);
 
             }
         }
@@ -109,6 +121,7 @@ namespace MoodlePortal
                 if (RadSaBazom.Obrisi(jmbg))
                 {
                     MessageBox.Show("Uspesno obrisan nastavnik!");
+                    LoadAll();
                 }
                 else
                 {
@@ -134,11 +147,11 @@ namespace MoodlePortal
             }
             if (RadSaBazomNastavnik.nadjiNastavnika(jmbg))
             {
-                Dictionary<long, String> nastavnici = RadSaBazomNastavnik.SpisakNastavnika();
-                foreach (var v in nastavnici)
-                    if (v.Key == jmbg)
+                nastavnici = RadSaBazomNastavnik.SpisakNastavnika();
+                foreach (Nastavnik n in nastavnici)
+                    if (n.Person_id == jmbg)
                     {
-                        listViewNastavnici.Items.Add(v.Value);
+                        listViewNastavnici.Items.Add(n.Person_id.ToString() + ", " + n.Ime + ", " + n.Prezime + ", " + n.Email);
                         break;
                     }
 
@@ -148,6 +161,18 @@ namespace MoodlePortal
             }
             else
                 MessageBox.Show("Ne postoji nastavnik sa ovim jmbg-om!");
+        }
+
+        private void listViewNastavnici_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewNastavnici.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem item = listViewNastavnici.SelectedItems[0];
+            currentTeacher = (Nastavnik)item.Tag;
+
+            Form forma = new NastavnikProfil(currentTeacher);
+            forma.ShowDialog();
         }
     }
 }

@@ -249,6 +249,7 @@ namespace MoodlePortal
             this.listViewNastavnici.TabIndex = 46;
             this.listViewNastavnici.UseCompatibleStateImageBehavior = false;
             this.listViewNastavnici.View = System.Windows.Forms.View.List;
+            this.listViewNastavnici.SelectedIndexChanged += new System.EventHandler(this.listViewNastavnici_SelectedIndexChanged);
             // 
             // UCTeacherCrud
             // 
