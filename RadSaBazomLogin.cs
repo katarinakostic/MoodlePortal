@@ -12,6 +12,38 @@ namespace MoodlePortal
 {
     class RadSaBazomLogin : RadSaBazom
     {
+        internal static bool InsertLoginData(string username, string pass, int acc_type, long person_id)
+        {
+            String query = String.Format("INSERT INTO login(`username`, `password`, `account_id`, `person_id`) values('{0}', '{1}', '{2}', '{3}')", username, pass, acc_type, person_id);
+            //sqlcon = DbConnection.GetConnection();
+            sqlcon = new MySqlConnection(connectionString);
+            bool ok = false;
+            try
+            {
+                sqlcon.Open();
+                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                //MySqlDataReader reader = cmd.ExecuteReader();
+
+                cmd.ExecuteNonQuery();
+                //sqlcon.Close();
+                ok = true;
+                //reader.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Query Executed: " + query);
+                Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return ok;
+        }
         internal static String getSalt(String username)
         {
             String salt = "";
@@ -89,7 +121,7 @@ namespace MoodlePortal
         internal static int GetAccountType(String username)
         {
             //SELECT account_type FROM `login` WHERE username="admin"
-            String query = String.Format("SELECT account_type FROM `login` WHERE username='{0}'", username);
+            String query = String.Format("SELECT account_id FROM `login` WHERE username='{0}'", username);
             sqlcon = new MySqlConnection(connectionString);
             int acc_type = -1; //ako vrati -1 nije lepo izvrsena provera
 

@@ -79,11 +79,14 @@ namespace MoodlePortal
             //    MessageBox.Show("Uspesno uneti podaci!");
             String username = ime + br_indeksa; //PROMENI
             SecurityLogin secLog = new SecurityLogin();
-
-            if (RadSaBazomStudent.Insert(br_indeksa, ime, prezime, email) && RadSaBazomStudent.InsertLoginData(br_indeksa, username, secLog.GenSaltSHA256(username), 2))
-                MessageBox.Show("Uspesno uneti podaci!");
+            if (RadSaBazom.InsertPerson(br_indeksa))
+            {
+                if (RadSaBazomStudent.Insert(br_indeksa, ime, prezime, email))
+                    if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 2, br_indeksa))
+                        MessageBox.Show("Uspesno uneti podaci!");
+            }
             else
-                        MessageBox.Show("Greska!");
+                MessageBox.Show("Greska!");
 
             if (listViewStudenti.Visible == true)
             {
@@ -105,7 +108,7 @@ namespace MoodlePortal
             }
             if (RadSaBazomStudent.nadjiStudenta(br_indeksa))
             {
-                if (RadSaBazomStudent.Obrisi(br_indeksa))
+                if (RadSaBazom.Obrisi(br_indeksa))
                 {
                     MessageBox.Show("Uspesno obrisan student!");
                 }
@@ -180,42 +183,5 @@ namespace MoodlePortal
             forma.Controls.Remove(this);
             forma.Controls.Add(new UCTeacherCrud(forma));
         }
-
-        /*
-        private String GenSaltSHA256(String pass_input)
-        {
-            String salt = CreateSalt(10);
-            String hashed_password = salt.Substring(0,8)+GenerateSHA256Hash(pass_input, salt)+salt.Substring(8,8);
-
-            //saltBox.Text = salt;
-            //hashBox.Text = hashed_password;
-
-            return hashed_password;
-        }
-
-        public String CreateSalt(int size)
-        {
-            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
-            var buff = new byte[size];
-            rng.GetBytes(buff);
-            return Convert.ToBase64String(buff);
-        }
-
-        public String GenerateSHA256Hash(String input, String salt)
-        {
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input + salt);
-            System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
-
-            byte[] hash = sha256hashstring.ComputeHash(bytes);
-
-            return ByteArrayToHexString(hash);
-        }
-        public static string ByteArrayToHexString(byte[] ba)
-        {
-            StringBuilder hex = new StringBuilder(ba.Length * 2);
-            foreach (byte b in ba)
-                hex.AppendFormat("{0:x2}", b);
-            return hex.ToString();
-        } */
     }
 }

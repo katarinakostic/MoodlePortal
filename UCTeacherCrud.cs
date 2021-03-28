@@ -48,8 +48,13 @@ namespace MoodlePortal
             String username = ime + jmbg; //PROMENI
             SecurityLogin secLog = new SecurityLogin();
 
-            if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email) && RadSaBazomNastavnik.InsertLoginData(jmbg, username, secLog.GenSaltSHA256(username), 3))
-                MessageBox.Show("Uspesno uneti podaci!");
+
+            if (RadSaBazom.InsertPerson(jmbg))
+            {
+                if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email))
+                    if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 3, jmbg))
+                        MessageBox.Show("Uspesno uneti podaci!");
+            }
             else
                 MessageBox.Show("Greska!");
 
@@ -101,7 +106,7 @@ namespace MoodlePortal
             }
             if (RadSaBazomNastavnik.nadjiNastavnika(jmbg))
             {
-                if (RadSaBazomNastavnik.Obrisi(jmbg))
+                if (RadSaBazom.Obrisi(jmbg))
                 {
                     MessageBox.Show("Uspesno obrisan nastavnik!");
                 }

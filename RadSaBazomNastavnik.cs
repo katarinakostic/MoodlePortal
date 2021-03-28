@@ -75,34 +75,6 @@ namespace MoodlePortal
             return ok;
         }
 
-        internal static bool InsertLoginData(long jmbg, string username, string pass, int acc_type)
-        {
-            String query = String.Format("INSERT INTO login(id_naloga, username, password, account_type) values('{0}', '{1}', '{2}', '{3}')", jmbg, username, pass, acc_type);
-            //sqlcon = DbConnection.GetConnection();
-            sqlcon = new MySqlConnection(connectionString);
-            bool ok = false;
-            try
-            {
-                sqlcon.Open();
-                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
-                cmd.ExecuteNonQuery();
-
-                ok = true;
-
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Inner Exception: " + ex.Message);
-                Console.WriteLine();
-                Console.WriteLine("Query Executed: " + query);
-                Console.WriteLine();
-            }
-            finally
-            {
-                sqlcon.Close();
-            }
-            return ok;
-        }
 
         internal static Dictionary<long, string> SpisakNastavnika()
         {
@@ -139,41 +111,6 @@ namespace MoodlePortal
             }
 
             return nastavnici;
-        }
-
-        internal static bool Obrisi(long jmbg)
-        {
-            String query = String.Format("DELETE FROM nastavnik WHERE jmbg_nastavnika='{0}'", jmbg);
-            String query2 = String.Format("DELETE FROM login WHERE id_naloga='{0}'", jmbg);
-            //sqlcon = DbConnection.GetConnection();
-            sqlcon = new MySqlConnection(connectionString);
-            bool ok = false;
-
-            try
-            {
-                sqlcon.Open();
-                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
-                MySqlCommand cmd2 = new MySqlCommand(query2, sqlcon);
-
-                cmd.ExecuteNonQuery();
-                cmd2.ExecuteNonQuery();
-                ok = true;
-
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Inner Exception: " + ex.Message);
-                Console.WriteLine();
-                Console.WriteLine("Query Executed: " + query);
-                Console.WriteLine();
-                Console.WriteLine("Query Executed: " + query2);
-                Console.WriteLine();
-            }
-            finally
-            {
-                sqlcon.Close();
-            }
-            return ok;
         }
 
         internal static string podaciONastavniku(long jmbg)
