@@ -14,9 +14,11 @@ E:\c#VS\MoodlePortal\bin\Debug\K4os.Compression.LZ4.dll
 E:\c#VS\MoodlePortal\bin\Debug\K4os.Hash.xxHash.dll
 E:\c#VS\MoodlePortal\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 E:\c#VS\MoodlePortal\bin\Debug\MySql.Data.xml
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csprojAssemblyReference.cache
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.exe.config
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.AdminForm.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.Form1.resources
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.LongTestObrisi.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.Properties.Resources.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.UCAdminPocetna.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.UCStudent.resources
@@ -26,4 +28,3 @@ E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csproj.CoreCompileInputs.cache
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csproj.CopyComplete
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.exe
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.pdb
-E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csprojAssemblyReference.cache

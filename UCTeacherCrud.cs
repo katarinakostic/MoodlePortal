@@ -13,7 +13,7 @@ namespace MoodlePortal
     public partial class UCTeacherCrud : UserControl
     {
         AdminForm form;
-        public Dictionary<int, string> nastavnici = new Dictionary<int, string>();
+        public Dictionary<long, string> nastavnici = new Dictionary<long, string>();
         public UCTeacherCrud(AdminForm form)
         {
             InitializeComponent();
@@ -23,10 +23,10 @@ namespace MoodlePortal
 
         private void insertBtn_Click(object sender, EventArgs e)
         {
-            int jmbg;
+            long jmbg;
             String ime, prezime, email;
             if (jmbgBox.Text.Length > 0)
-                jmbg = int.Parse(jmbgBox.Text.ToString());
+                jmbg = Int64.Parse(jmbgBox.Text.ToString());
                 //if (long.TryParse(jmbgBox.Text.ToString()))
                    // jmbg = long.TryParse(jmbgBox.Text.ToString());
                 else
@@ -90,10 +90,10 @@ namespace MoodlePortal
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
-            int jmbg;
+            long jmbg;
 
             if (jmbgDeleteTxt.Text.Length > 0)
-                jmbg = int.Parse(jmbgDeleteTxt.Text.ToString());
+                jmbg = Int64.Parse(jmbgDeleteTxt.Text.ToString());
             else
             {
                 MessageBox.Show("Unesite jmbg!");
@@ -118,10 +118,10 @@ namespace MoodlePortal
         private void searchBtn_Click(object sender, EventArgs e)
         {
             listViewNastavnici.Clear();
-            int jmbg;
+            long jmbg;
 
             if (jmbgSearchBox.Text.Length > 0)
-                jmbg = int.Parse(jmbgSearchBox.Text.ToString());
+                jmbg = Int64.Parse(jmbgSearchBox.Text.ToString());
             else
             {
                 MessageBox.Show("Unesite jmbg!");
@@ -129,7 +129,7 @@ namespace MoodlePortal
             }
             if (RadSaBazomNastavnik.nadjiNastavnika(jmbg))
             {
-                Dictionary<int, String> nastavnici = RadSaBazomNastavnik.SpisakNastavnika();
+                Dictionary<long, String> nastavnici = RadSaBazomNastavnik.SpisakNastavnika();
                 foreach (var v in nastavnici)
                     if (v.Key == jmbg)
                     {

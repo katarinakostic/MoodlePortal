@@ -12,7 +12,7 @@ namespace MoodlePortal
 {
     class RadSaBazomNastavnik : RadSaBazom
     {
-        internal static bool nadjiNastavnika(int jmbg)  //provera da li je nastavnik vec u bazi
+        internal static bool nadjiNastavnika(long jmbg)  //provera da li je nastavnik vec u bazi
         {
             String query = String.Format("SELECT * FROM nastavnik WHERE jmbg_nastavnika='{0}'", jmbg);
             sqlcon = new MySqlConnection(connectionString);
@@ -46,7 +46,7 @@ namespace MoodlePortal
             return exists;
         }
 
-        internal static bool Insert(int jmbg, string ime, string prezime, string email)
+        internal static bool Insert(long jmbg, string ime, string prezime, string email)
         {
             String query = String.Format("INSERT INTO nastavnik(jmbg_nastavnika, ime, prezime, email) values('{0}', '{1}','{2}', '{3}')", jmbg, ime, prezime, email);
             //sqlcon = DbConnection.GetConnection();
@@ -75,7 +75,7 @@ namespace MoodlePortal
             return ok;
         }
 
-        internal static bool InsertLoginData(int jmbg, string username, string pass, int acc_type)
+        internal static bool InsertLoginData(long jmbg, string username, string pass, int acc_type)
         {
             String query = String.Format("INSERT INTO login(id_naloga, username, password, account_type) values('{0}', '{1}', '{2}', '{3}')", jmbg, username, pass, acc_type);
             //sqlcon = DbConnection.GetConnection();
@@ -104,10 +104,10 @@ namespace MoodlePortal
             return ok;
         }
 
-        internal static Dictionary<int, string> SpisakNastavnika()
+        internal static Dictionary<long, string> SpisakNastavnika()
         {
             String query = "SELECT * FROM nastavnik";
-            Dictionary<int, String> nastavnici = new Dictionary<int, String>();
+            Dictionary<long, String> nastavnici = new Dictionary<long, String>();
 
             sqlcon = new MySqlConnection(connectionString);
 
@@ -121,7 +121,7 @@ namespace MoodlePortal
                 while (rd.Read())
                 {
                     String podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-                    nastavnici.Add(int.Parse(rd[0].ToString()), podaciONastavniku);
+                    nastavnici.Add(Int64.Parse(rd[0].ToString()), podaciONastavniku);
                 }
 
                 rd.Close();
@@ -141,7 +141,7 @@ namespace MoodlePortal
             return nastavnici;
         }
 
-        internal static bool Obrisi(int jmbg)
+        internal static bool Obrisi(long jmbg)
         {
             String query = String.Format("DELETE FROM nastavnik WHERE jmbg_nastavnika='{0}'", jmbg);
             String query2 = String.Format("DELETE FROM login WHERE id_naloga='{0}'", jmbg);
@@ -176,7 +176,7 @@ namespace MoodlePortal
             return ok;
         }
 
-        internal static string podaciONastavniku(int jmbg)
+        internal static string podaciONastavniku(long jmbg)
         {
             String query = String.Format("SELECT * FROM nastavnik WHERE jmbg_nastavnika = '{0}' ", jmbg);
             String podaciONastavniku = "";
