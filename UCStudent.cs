@@ -16,6 +16,9 @@ namespace MoodlePortal
 {
     public partial class UCStudent : UserControl
     {
+        public Student currentStudent = null;
+        byte[] img = null;
+
         public Dictionary<int, string> studenti = new Dictionary<int, string>();
         AdminForm forma;
 
@@ -28,10 +31,23 @@ namespace MoodlePortal
 
         private void prikaziStudenteBtn_Click(object sender, EventArgs e)
         {
+            /*   List<User> users = User.GetUsers();
+
+               listViewUsers.Items.Clear();
+               foreach (User u in users)
+               {
+                   // ListViewItem item = new ListViewItem(new String[] {u.Id.ToString(), u.Username, u.Password }); 
+                   ListViewItem item = new ListViewItem(u.Id.ToString() + ", " + u.Username + ", " + u.Password);
+                   item.Tag = u;
+                   listViewUsers.Items.Add(item);
+
+               } */
+
+            List<Student> studenti = RadSaBazomStudent.SpisakStudenata();
+
             if (listViewStudenti.Visible == true)
                 listViewStudenti.Clear();
             
-            studenti = RadSaBazomStudent.SpisakStudenata();
             /* if (RadSaBazom.nadjiStudenta(639))
                 MessageBox.Show("639 Postojii"); //PROVERA
             else
@@ -39,10 +55,13 @@ namespace MoodlePortal
             if (studenti.Count > 0)
             {
                 listViewStudenti.Show();
-                foreach (String podaci in studenti.Values)
+                foreach (Student s in studenti)
                 {
+                    ListViewItem item = new ListViewItem(s.Person_id.ToString() + ", " + s.Ime + ", " + s.Prezime + ", " + s.Email);
+                    item.Tag = s;
+                    listViewStudenti.Items.Add(item);
 
-                     listViewStudenti.Items.Add(podaci);
+                    //listViewStudenti.Items.Add(podaci);
                      //MessageBox.Show(prepisaniLekoviRecnik.Keys[0]);
                 }
             }
@@ -83,15 +102,20 @@ namespace MoodlePortal
             {
                 if (RadSaBazomStudent.Insert(br_indeksa, ime, prezime, email))
                     if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 2, br_indeksa))
+                    {
+                        if (img != null)
+                            RadSaBazomStudent.sacuvajFotografiju(img, br_indeksa);
+                        currentStudent = new Student(br_indeksa, ime, prezime, email);
                         MessageBox.Show("Uspesno uneti podaci!");
+                    }
             }
             else
                 MessageBox.Show("Greska!");
 
             if (listViewStudenti.Visible == true)
             {
-                String podaciostudentu = RadSaBazomStudent.podaciOStudentu(br_indeksa);
-                listViewStudenti.Items.Add(podaciostudentu);
+                Student s = RadSaBazomStudent.podaciOStudentu(br_indeksa);
+                listViewStudenti.Items.Add(s.Person_id.ToString() + ", " + s.Ime + ", " + s.Prezime + ", " + s.Email);
             }
         }
 
@@ -137,11 +161,11 @@ namespace MoodlePortal
             }
             if (RadSaBazomStudent.nadjiStudenta(br_indeksa))
             {
-                Dictionary<int, String> studenti = RadSaBazomStudent.SpisakStudenata();
-                foreach(var v in studenti)
-                    if(v.Key==br_indeksa)
+                List<Student> studenti = RadSaBazomStudent.SpisakStudenata();
+                foreach(Student s in studenti)
+                    if(s.Person_id==br_indeksa)
                     {
-                listViewStudenti.Items.Add(v.Value);
+                listViewStudenti.Items.Add(s.Person_id.ToString() + ", " + s.Ime + ", " + s.Prezime + ", " + s.Email);
                          break;
                      }
 
@@ -150,38 +174,57 @@ namespace MoodlePortal
 
             }
             else
-                MessageBox.Show("Ne postoji student sa tim brojem indeksa!");
+                MessageBox.Show("Ne postoji student sa tim brojem indeksa!"); 
             
         }
 
         private void imageBtn_Click(object sender, EventArgs e)
         {
             OpenFileDialog opf = new OpenFileDialog();
+            
             opf.Filter = "Choose Image(*.jpg; *.png; *.gif)|*.jpg; *.png; *.gif";
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image = Image.FromFile(opf.FileName);
                 MemoryStream ms = new MemoryStream();
                 pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
-                byte[] img = ms.ToArray();
+                img = ms.ToArray();
 
-                int br_indeksa;
+              /*  int br_indeksa;
                 if (brindeksaBox.Text.Length > 0)
                     br_indeksa = int.Parse(brindeksaBox.Text.ToString());
                 else
                 {
                     MessageBox.Show("Unesite broj indeksa!");
                     return;
-                }
-
-                RadSaBazomStudent.sacuvajFotografiju(img, br_indeksa);
+                }          */     
+                //RadSaBazomStudent.sacuvajFotografiju(img, br_indeksa);
             }
+            
         }
 
         private void backBtn_Click(object sender, EventArgs e)
         {
             forma.Controls.Remove(this);
             forma.Controls.Add(new UCTeacherCrud(forma));
+        }
+
+        private void listViewStudenti_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewStudenti.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem item = listViewStudenti.SelectedItems[0];
+            currentStudent = (Student)item.Tag;
+
+            Form forma = new StudentProfil(currentStudent);
+            forma.ShowDialog();
+
+            /*       String u = currentuser.Username;
+                   String p = currentuser.Password;
+
+                   usernameTxt.Text = u;
+                   passTxt.Text = p; */
         }
     }
 }

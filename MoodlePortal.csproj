@@ -70,6 +70,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadSaBazom.cs" />
@@ -78,6 +79,12 @@
     <Compile Include="RadSaBazomStudent.cs" />
     <Compile Include="SecurityLogin.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="StudentProfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentProfil.Designer.cs">
+      <DependentUpon>StudentProfil.cs</DependentUpon>
+    </Compile>
     <Compile Include="UCAdminPocetna.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +118,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StudentProfil.resx">
+      <DependentUpon>StudentProfil.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UCAdminPocetna.resx">
       <DependentUpon>UCAdminPocetna.cs</DependentUpon>
     </EmbeddedResource>

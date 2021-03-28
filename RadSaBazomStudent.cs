@@ -85,11 +85,10 @@ namespace MoodlePortal
             return ok;
         }
 
-
-        internal static Dictionary<int, String> SpisakStudenata()
+        internal static List<Student> SpisakStudenata()
         {
             String query = "SELECT * FROM studenti";
-            Dictionary<int, String> studenti = new Dictionary<int, String>();
+            List<Student> studenti = new List<Student>();
 
             //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
@@ -105,11 +104,14 @@ namespace MoodlePortal
 
                 while (rd.Read())
                 {
-                String podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-                studenti.Add(int.Parse(rd[0].ToString()), podaciOStudentu);
-                //int i = 33;
-                    // studenti.Add(int.Parse(rd[0].ToString()), "m");
-            }
+                    long br_indeksa = (long)rd["br_indeksa"];
+                    String ime = rd["ime"].ToString();
+                    String prezime = rd["prezime"].ToString();
+                    String email = rd["email"].ToString();
+
+                    Student s = new Student(br_indeksa, ime, prezime, email);
+                    studenti.Add(s);
+                }
 
                 rd.Close();
             }
@@ -125,12 +127,53 @@ namespace MoodlePortal
                 sqlcon.Close();
             }
 
-           return studenti;
+            return studenti;
         }
-        internal static String podaciOStudentu(int br_indeksa)
+        /* internal static Dictionary<int, String> SpisakStudenata()
+         {
+             String query = "SELECT * FROM studenti";
+             Dictionary<int, String> studenti = new Dictionary<int, String>();
+
+             //sqlcon = DbConnection.GetConnection();
+             sqlcon = new MySqlConnection(connectionString);
+             //sqlcon = con;
+
+             try
+             {
+                 sqlcon.Open();
+                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                 //MySqlDataReader rd = cmd.ExecuteReader();
+                 MySqlDataReader rd = cmd.ExecuteReader();
+
+                 while (rd.Read())
+                 {
+                 String podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                 studenti.Add(int.Parse(rd[0].ToString()), podaciOStudentu);
+                 //int i = 33;
+                     // studenti.Add(int.Parse(rd[0].ToString()), "m");
+             }
+
+                 rd.Close();
+             }
+             catch (SqlException ex)
+             {
+                 Console.WriteLine("Inner Exception: " + ex.Message);
+                 Console.WriteLine();
+                 Console.WriteLine("Query Executed: " + query);
+                 Console.WriteLine();
+             }
+             finally
+             {
+                 sqlcon.Close();
+             }
+
+            return studenti;
+         } */
+        internal static Student podaciOStudentu(int br_indeksa)
         {
             String query = String.Format("SELECT * FROM studenti WHERE br_indeksa = '{0}' ", br_indeksa);
-            String podaciOStudentu = "";
+            Student podaciOStudentu = null;
             //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
             //sqlcon = con;
@@ -148,7 +191,8 @@ namespace MoodlePortal
 
                 while (rd.Read())
                 {
-                    podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                    //podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                    podaciOStudentu = new Student(Int64.Parse(rd[0].ToString()), rd[1].ToString(), rd[2].ToString(), rd[3].ToString());
                 }
 
                 rd.Close();

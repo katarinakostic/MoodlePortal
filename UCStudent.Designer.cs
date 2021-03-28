@@ -64,6 +64,7 @@ namespace MoodlePortal
             this.listViewStudenti.TabIndex = 0;
             this.listViewStudenti.UseCompatibleStateImageBehavior = false;
             this.listViewStudenti.View = System.Windows.Forms.View.List;
+            this.listViewStudenti.SelectedIndexChanged += new System.EventHandler(this.listViewStudenti_SelectedIndexChanged);
             // 
             // prikaziStudenteBtn
             // 
