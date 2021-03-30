@@ -48,7 +48,7 @@ namespace MoodlePortal
 
         internal static bool Insert(long jmbg, string ime, string prezime, string email, byte[] foto)
         {
-            String query = String.Format("INSERT INTO nastavnik(jmbg_nastavnika, ime, prezime, email, fotografija) values('{0}', '{1}','{2}', '{3}', '{4}')", jmbg, ime, prezime, email, foto);
+            String query = String.Format("INSERT INTO nastavnik(jmbg_nastavnika, ime, prezime, email, fotografija) values('{0}', '{1}','{2}', '{3}', '{4}')", jmbg, ime, prezime, email, @foto);
             //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
             bool ok = false;
@@ -56,6 +56,9 @@ namespace MoodlePortal
             {
                 sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
+
+                cmd.Parameters.Add(new MySqlParameter("@foto", foto));
+
                 cmd.ExecuteNonQuery();
 
                 ok = true;
@@ -67,6 +70,56 @@ namespace MoodlePortal
                 Console.WriteLine();
                 Console.WriteLine("Query Executed: " + query);
                 Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return ok;
+        }
+
+        internal static bool UpdateNastavnik(Dictionary<string, bool> update, string newName, string newSurname, string newEmail, ref Nastavnik nastavnik)
+        {
+            String queryName, querySurname, queryEmail;
+            //sqlcon = DbConnection.GetConnection();
+            sqlcon = new MySqlConnection(connectionString);
+            bool ok = false;
+            try
+            {
+                sqlcon.Open();
+                //     sqlcon.Parameters.Add(new MySqlParameter("@IMG", foto))
+                if (update["ime"])
+                {
+                    queryName = String.Format("UPDATE nastavnik SET ime='{0}' WHERE jmbg_nastavnika='{1}'", newName, nastavnik.Person_id);
+                    MySqlCommand cmd = new MySqlCommand(queryName, sqlcon);
+                    nastavnik.Ime = newName;
+                    cmd.ExecuteNonQuery();
+
+                }
+                if (update["prezime"])
+                {
+                    querySurname = String.Format("UPDATE nastavnik SET prezime='{0}' WHERE jmbg_nastavnika='{1}'", newSurname, nastavnik.Person_id);
+                    MySqlCommand cmd = new MySqlCommand(querySurname, sqlcon);
+                    nastavnik.Prezime = newSurname;
+                    cmd.ExecuteNonQuery();
+                }
+                if (update["email"])
+                {
+                    queryEmail = String.Format("UPDATE nastavnik SET email='{0}' WHERE jmbg_nastavnika='{1}'", newEmail, nastavnik.Person_id);
+                    MySqlCommand cmd = new MySqlCommand(queryEmail, sqlcon);
+                    nastavnik.Email = newEmail;
+                    cmd.ExecuteNonQuery();
+                }
+
+                ok = true;
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                //Console.WriteLine("Query Executed: " + queryName);
+                //Console.WriteLine();
             }
             finally
             {

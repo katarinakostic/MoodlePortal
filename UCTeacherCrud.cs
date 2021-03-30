@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using System.IO;
+
+using System.Security.Cryptography;
 
 namespace MoodlePortal
 {
@@ -16,7 +20,10 @@ namespace MoodlePortal
         //public Dictionary<long, string> nastavnici = new Dictionary<long, string>();
         List<Nastavnik> nastavnici = new List<Nastavnik>();
         public Nastavnik currentTeacher = null;
+
+        string picPath = "";
         byte[] img = null;
+
         public UCTeacherCrud(AdminForm form)
         {
             InitializeComponent();
@@ -29,7 +36,7 @@ namespace MoodlePortal
             long jmbg;
             String ime, prezime, email;
             nastavnici = RadSaBazomNastavnik.SpisakNastavnika();
-            if (jmbgBox.Text.Length > 0)
+      /*      if (jmbgBox.Text.Length > 0)
                 jmbg = Int64.Parse(jmbgBox.Text.ToString());
                 //if (long.TryParse(jmbgBox.Text.ToString()))
                    // jmbg = long.TryParse(jmbgBox.Text.ToString());
@@ -37,38 +44,43 @@ namespace MoodlePortal
                 {
                     MessageBox.Show("Unesite jmbg!");
                     return;
-                }
+                } */
             ime = imeBox.Text.ToString();
             prezime = prezimeBox.Text.ToString();
             email = emailBox.Text.ToString();
-
-            if (RadSaBazomNastavnik.nadjiNastavnika(jmbg))
-            {
-                MessageBox.Show("Ovaj nastavnik je vec u bazi!");
-                return;
-            }
+            
             //if (RadSaBazom.Insert(jmbg, ime, prezime, email))
-            //    MessageBox.Show("Uspesno uneti podaci!");
-            String username = ime + jmbg; //PROMENI
-            SecurityLogin secLog = new SecurityLogin();
+            //    MessageBox.Show("Uspesno uneti podaci!");            
 
-
-            if (RadSaBazom.InsertPerson(jmbg))
+            if (long.TryParse(jmbgBox.Text.ToString(), out jmbg) && ime.Length > 0 && prezime.Length > 0 && email.Length > 0)
             {
-                if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email, img))
-                    if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 3, jmbg))
-                    {
-                        //if (img != null)
-                        //    RadSaBazomNastavnik.sacuvajFotografiju(img, jmbg);
-                        currentTeacher = new Nastavnik(jmbg, ime, prezime, email, img);
-                        MessageBox.Show("Uspesno uneti podaci!");
-                        if (!listViewNastavnici.Visible)
-                            listViewNastavnici.Show();
-                        LoadAll();
-                    }
+                if (RadSaBazomNastavnik.nadjiNastavnika(jmbg))
+                {
+                    MessageBox.Show("Ovaj nastavnik je vec u bazi!");
+                    return;
+                }
+                String username = ime + jmbg; //PROMENI
+                SecurityLogin secLog = new SecurityLogin();
+                if (RadSaBazom.InsertPerson(jmbg))
+                {
+                    if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email, img))
+                        if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 3, jmbg))
+                        {
+                            //if (img != null)
+                            //    RadSaBazomNastavnik.sacuvajFotografiju(img, jmbg);
+                            currentTeacher = new Nastavnik(jmbg, ime, prezime, email, img);
+                            MessageBox.Show("Uspesno uneti podaci!");
+                            if (!listViewNastavnici.Visible)
+                                listViewNastavnici.Show();
+                            LoadAll();
+                        }
+                }
+                else
+                    MessageBox.Show("Greska!");
             }
             else
-                MessageBox.Show("Greska!");
+                MessageBox.Show("Nisu uneti svi podaci za studenta!");
+
 
         }
 
@@ -151,7 +163,9 @@ namespace MoodlePortal
                 foreach (Nastavnik n in nastavnici)
                     if (n.Person_id == jmbg)
                     {
-                        listViewNastavnici.Items.Add(n.Person_id.ToString() + ", " + n.Ime + ", " + n.Prezime + ", " + n.Email);
+                        ListViewItem item = new ListViewItem(n.Person_id.ToString() + ", " + n.Ime + ", " + n.Prezime + ", " + n.Email);
+                        item.Tag = n;
+                        listViewNastavnici.Items.Add(item);
                         break;
                     }
 
@@ -174,6 +188,24 @@ namespace MoodlePortal
 
             Form forma = new NastavnikProfil(currentTeacher);
             forma.ShowDialog();
+        }
+
+        private void imageBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+
+            //opf.Filter = "Choose Image(*.jpg; *.png; *.gif)|*.jpg; *.png; *.gif";
+            opf.Filter = "JPG Files(*.jpg)|*.jpg|PNG Files(*.png)|*.png|All Files(*.*)|*.*";
+            if (opf.ShowDialog() == DialogResult.OK)
+            {
+                picPath = opf.FileName.ToString();
+                pictureBox1.ImageLocation = picPath;
+
+                //byte[] img = null;
+                FileStream fstream = new FileStream(picPath, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fstream);
+                img = br.ReadBytes((int)fstream.Length);               
+            }
         }
     }
 }

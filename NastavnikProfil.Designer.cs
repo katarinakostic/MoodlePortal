@@ -32,9 +32,9 @@ namespace MoodlePortal
             this.izmeniBtn = new System.Windows.Forms.Button();
             this.updatePnl = new System.Windows.Forms.Panel();
             this.updateSaveBtn = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.emailBox = new System.Windows.Forms.TextBox();
+            this.prezimeBox = new System.Windows.Forms.TextBox();
+            this.imeBox = new System.Windows.Forms.TextBox();
             this.closeBtn = new System.Windows.Forms.Button();
             this.jmbgLbl = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -58,9 +58,9 @@ namespace MoodlePortal
             // updatePnl
             // 
             this.updatePnl.Controls.Add(this.updateSaveBtn);
-            this.updatePnl.Controls.Add(this.textBox3);
-            this.updatePnl.Controls.Add(this.textBox2);
-            this.updatePnl.Controls.Add(this.textBox1);
+            this.updatePnl.Controls.Add(this.emailBox);
+            this.updatePnl.Controls.Add(this.prezimeBox);
+            this.updatePnl.Controls.Add(this.imeBox);
             this.updatePnl.Location = new System.Drawing.Point(435, 33);
             this.updatePnl.Name = "updatePnl";
             this.updatePnl.Size = new System.Drawing.Size(303, 341);
@@ -74,27 +74,28 @@ namespace MoodlePortal
             this.updateSaveBtn.TabIndex = 5;
             this.updateSaveBtn.Text = "SACUVAJ";
             this.updateSaveBtn.UseVisualStyleBackColor = true;
+            this.updateSaveBtn.Click += new System.EventHandler(this.updateSaveBtn_Click);
             // 
-            // textBox3
+            // emailBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(18, 127);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 22);
-            this.textBox3.TabIndex = 2;
+            this.emailBox.Location = new System.Drawing.Point(18, 127);
+            this.emailBox.Name = "emailBox";
+            this.emailBox.Size = new System.Drawing.Size(100, 22);
+            this.emailBox.TabIndex = 2;
             // 
-            // textBox2
+            // prezimeBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(18, 78);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 1;
+            this.prezimeBox.Location = new System.Drawing.Point(18, 78);
+            this.prezimeBox.Name = "prezimeBox";
+            this.prezimeBox.Size = new System.Drawing.Size(100, 22);
+            this.prezimeBox.TabIndex = 1;
             // 
-            // textBox1
+            // imeBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(18, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
+            this.imeBox.Location = new System.Drawing.Point(18, 35);
+            this.imeBox.Name = "imeBox";
+            this.imeBox.Size = new System.Drawing.Size(100, 22);
+            this.imeBox.TabIndex = 0;
             // 
             // closeBtn
             // 
@@ -178,9 +179,9 @@ namespace MoodlePortal
         private System.Windows.Forms.Button izmeniBtn;
         private System.Windows.Forms.Panel updatePnl;
         private System.Windows.Forms.Button updateSaveBtn;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox emailBox;
+        private System.Windows.Forms.TextBox prezimeBox;
+        private System.Windows.Forms.TextBox imeBox;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Label jmbgLbl;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -34,7 +34,6 @@ namespace MoodlePortal
             this.hashBox = new System.Windows.Forms.TextBox();
             this.saltBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.imageBtn = new System.Windows.Forms.Button();
             this.searchBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.jmbgSearchBox = new System.Windows.Forms.TextBox();
@@ -52,6 +51,7 @@ namespace MoodlePortal
             this.insertBtn = new System.Windows.Forms.Button();
             this.prikaziNastavnikeBtn = new System.Windows.Forms.Button();
             this.listViewNastavnici = new System.Windows.Forms.ListView();
+            this.imageBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,15 +94,6 @@ namespace MoodlePortal
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
             this.pictureBox1.TabIndex = 41;
             this.pictureBox1.TabStop = false;
-            // 
-            // imageBtn
-            // 
-            this.imageBtn.Location = new System.Drawing.Point(285, 541);
-            this.imageBtn.Name = "imageBtn";
-            this.imageBtn.Size = new System.Drawing.Size(95, 33);
-            this.imageBtn.TabIndex = 40;
-            this.imageBtn.Text = "fotografija";
-            this.imageBtn.UseVisualStyleBackColor = true;
             // 
             // searchBtn
             // 
@@ -251,17 +242,27 @@ namespace MoodlePortal
             this.listViewNastavnici.View = System.Windows.Forms.View.List;
             this.listViewNastavnici.SelectedIndexChanged += new System.EventHandler(this.listViewNastavnici_SelectedIndexChanged);
             // 
+            // imageBtn
+            // 
+            this.imageBtn.Location = new System.Drawing.Point(285, 539);
+            this.imageBtn.Name = "imageBtn";
+            this.imageBtn.Size = new System.Drawing.Size(112, 35);
+            this.imageBtn.TabIndex = 47;
+            this.imageBtn.Text = "FOTOGRAFIJA";
+            this.imageBtn.UseVisualStyleBackColor = true;
+            this.imageBtn.Click += new System.EventHandler(this.imageBtn_Click);
+            // 
             // UCTeacherCrud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.imageBtn);
             this.Controls.Add(this.listViewNastavnici);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.hashBox);
             this.Controls.Add(this.saltBox);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.imageBtn);
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.jmbgSearchBox);
@@ -293,7 +294,6 @@ namespace MoodlePortal
         private System.Windows.Forms.TextBox hashBox;
         private System.Windows.Forms.TextBox saltBox;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button imageBtn;
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox jmbgSearchBox;
@@ -311,5 +311,6 @@ namespace MoodlePortal
         private System.Windows.Forms.Button insertBtn;
         private System.Windows.Forms.Button prikaziNastavnikeBtn;
         private System.Windows.Forms.ListView listViewNastavnici;
+        private System.Windows.Forms.Button imageBtn;
     }
 }
