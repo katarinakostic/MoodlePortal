@@ -48,8 +48,8 @@ namespace MoodlePortal
             this.searchBtn = new System.Windows.Forms.Button();
             this.imageBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.saltBox = new System.Windows.Forms.TextBox();
-            this.hashBox = new System.Windows.Forms.TextBox();
+            this.godinaStudijaBox = new System.Windows.Forms.TextBox();
+            this.godinaUpisaBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -58,7 +58,7 @@ namespace MoodlePortal
             // listViewStudenti
             // 
             this.listViewStudenti.HideSelection = false;
-            this.listViewStudenti.Location = new System.Drawing.Point(84, 151);
+            this.listViewStudenti.Location = new System.Drawing.Point(47, 98);
             this.listViewStudenti.Name = "listViewStudenti";
             this.listViewStudenti.Size = new System.Drawing.Size(436, 290);
             this.listViewStudenti.TabIndex = 0;
@@ -68,7 +68,7 @@ namespace MoodlePortal
             // 
             // prikaziStudenteBtn
             // 
-            this.prikaziStudenteBtn.Location = new System.Drawing.Point(84, 96);
+            this.prikaziStudenteBtn.Location = new System.Drawing.Point(47, 43);
             this.prikaziStudenteBtn.Name = "prikaziStudenteBtn";
             this.prikaziStudenteBtn.Size = new System.Drawing.Size(156, 38);
             this.prikaziStudenteBtn.TabIndex = 1;
@@ -78,7 +78,7 @@ namespace MoodlePortal
             // 
             // insertBtn
             // 
-            this.insertBtn.Location = new System.Drawing.Point(257, 466);
+            this.insertBtn.Location = new System.Drawing.Point(264, 407);
             this.insertBtn.Name = "insertBtn";
             this.insertBtn.Size = new System.Drawing.Size(95, 47);
             this.insertBtn.TabIndex = 2;
@@ -89,7 +89,7 @@ namespace MoodlePortal
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 466);
+            this.label1.Location = new System.Drawing.Point(25, 407);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 17);
             this.label1.TabIndex = 3;
@@ -98,7 +98,7 @@ namespace MoodlePortal
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 493);
+            this.label2.Location = new System.Drawing.Point(25, 434);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 17);
             this.label2.TabIndex = 4;
@@ -107,7 +107,7 @@ namespace MoodlePortal
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 548);
+            this.label3.Location = new System.Drawing.Point(25, 489);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 17);
             this.label3.TabIndex = 6;
@@ -116,7 +116,7 @@ namespace MoodlePortal
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 521);
+            this.label4.Location = new System.Drawing.Point(25, 462);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 17);
             this.label4.TabIndex = 5;
@@ -124,35 +124,35 @@ namespace MoodlePortal
             // 
             // brindeksaBox
             // 
-            this.brindeksaBox.Location = new System.Drawing.Point(124, 466);
+            this.brindeksaBox.Location = new System.Drawing.Point(131, 407);
             this.brindeksaBox.Name = "brindeksaBox";
             this.brindeksaBox.Size = new System.Drawing.Size(100, 22);
             this.brindeksaBox.TabIndex = 7;
             // 
             // imeBox
             // 
-            this.imeBox.Location = new System.Drawing.Point(124, 490);
+            this.imeBox.Location = new System.Drawing.Point(131, 431);
             this.imeBox.Name = "imeBox";
             this.imeBox.Size = new System.Drawing.Size(100, 22);
             this.imeBox.TabIndex = 8;
             // 
             // emailBox
             // 
-            this.emailBox.Location = new System.Drawing.Point(124, 542);
+            this.emailBox.Location = new System.Drawing.Point(131, 483);
             this.emailBox.Name = "emailBox";
             this.emailBox.Size = new System.Drawing.Size(100, 22);
             this.emailBox.TabIndex = 10;
             // 
             // prezimeBox
             // 
-            this.prezimeBox.Location = new System.Drawing.Point(124, 518);
+            this.prezimeBox.Location = new System.Drawing.Point(131, 459);
             this.prezimeBox.Name = "prezimeBox";
             this.prezimeBox.Size = new System.Drawing.Size(100, 22);
             this.prezimeBox.TabIndex = 9;
             // 
             // indeksDeleteTxt
             // 
-            this.indeksDeleteTxt.Location = new System.Drawing.Point(503, 471);
+            this.indeksDeleteTxt.Location = new System.Drawing.Point(510, 412);
             this.indeksDeleteTxt.Name = "indeksDeleteTxt";
             this.indeksDeleteTxt.Size = new System.Drawing.Size(100, 22);
             this.indeksDeleteTxt.TabIndex = 12;
@@ -160,7 +160,7 @@ namespace MoodlePortal
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(397, 471);
+            this.label5.Location = new System.Drawing.Point(404, 412);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 17);
             this.label5.TabIndex = 11;
@@ -168,7 +168,7 @@ namespace MoodlePortal
             // 
             // deleteBtn
             // 
-            this.deleteBtn.Location = new System.Drawing.Point(503, 517);
+            this.deleteBtn.Location = new System.Drawing.Point(510, 458);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(100, 23);
             this.deleteBtn.TabIndex = 13;
@@ -178,7 +178,7 @@ namespace MoodlePortal
             // 
             // indeksSearchBox
             // 
-            this.indeksSearchBox.Location = new System.Drawing.Point(339, 112);
+            this.indeksSearchBox.Location = new System.Drawing.Point(302, 59);
             this.indeksSearchBox.Name = "indeksSearchBox";
             this.indeksSearchBox.Size = new System.Drawing.Size(100, 22);
             this.indeksSearchBox.TabIndex = 14;
@@ -186,7 +186,7 @@ namespace MoodlePortal
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(336, 74);
+            this.label6.Location = new System.Drawing.Point(299, 21);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(170, 17);
             this.label6.TabIndex = 15;
@@ -194,7 +194,7 @@ namespace MoodlePortal
             // 
             // searchBtn
             // 
-            this.searchBtn.Location = new System.Drawing.Point(456, 96);
+            this.searchBtn.Location = new System.Drawing.Point(419, 43);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(76, 38);
             this.searchBtn.TabIndex = 16;
@@ -204,7 +204,7 @@ namespace MoodlePortal
             // 
             // imageBtn
             // 
-            this.imageBtn.Location = new System.Drawing.Point(257, 531);
+            this.imageBtn.Location = new System.Drawing.Point(264, 472);
             this.imageBtn.Name = "imageBtn";
             this.imageBtn.Size = new System.Drawing.Size(95, 33);
             this.imageBtn.TabIndex = 17;
@@ -214,52 +214,52 @@ namespace MoodlePortal
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(550, 248);
+            this.pictureBox1.Location = new System.Drawing.Point(489, 116);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(196, 234);
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // saltBox
+            // godinaStudijaBox
             // 
-            this.saltBox.Location = new System.Drawing.Point(242, 4);
-            this.saltBox.Name = "saltBox";
-            this.saltBox.Size = new System.Drawing.Size(177, 22);
-            this.saltBox.TabIndex = 19;
+            this.godinaStudijaBox.Location = new System.Drawing.Point(131, 535);
+            this.godinaStudijaBox.Name = "godinaStudijaBox";
+            this.godinaStudijaBox.Size = new System.Drawing.Size(100, 22);
+            this.godinaStudijaBox.TabIndex = 22;
             // 
-            // hashBox
+            // godinaUpisaBox
             // 
-            this.hashBox.Location = new System.Drawing.Point(242, 32);
-            this.hashBox.Name = "hashBox";
-            this.hashBox.Size = new System.Drawing.Size(177, 22);
-            this.hashBox.TabIndex = 20;
+            this.godinaUpisaBox.Location = new System.Drawing.Point(131, 511);
+            this.godinaUpisaBox.Name = "godinaUpisaBox";
+            this.godinaUpisaBox.Size = new System.Drawing.Size(100, 22);
+            this.godinaUpisaBox.TabIndex = 21;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(124, 4);
+            this.label7.Location = new System.Drawing.Point(25, 541);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 17);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "SALT";
+            this.label7.Size = new System.Drawing.Size(103, 17);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Godina studija:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(124, 32);
+            this.label8.Location = new System.Drawing.Point(25, 514);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(88, 17);
-            this.label8.TabIndex = 22;
-            this.label8.Text = "PASSWORD";
+            this.label8.Size = new System.Drawing.Size(96, 17);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Godina upisa:";
             // 
             // UCStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.godinaStudijaBox);
+            this.Controls.Add(this.godinaUpisaBox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.hashBox);
-            this.Controls.Add(this.saltBox);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.imageBtn);
             this.Controls.Add(this.searchBtn);
@@ -308,8 +308,8 @@ namespace MoodlePortal
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.Button imageBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox saltBox;
-        private System.Windows.Forms.TextBox hashBox;
+        private System.Windows.Forms.TextBox godinaStudijaBox;
+        private System.Windows.Forms.TextBox godinaUpisaBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
     }

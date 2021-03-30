@@ -14,7 +14,7 @@ namespace MoodlePortal
             this.jmbg = jmbg;
         }
 
-        public Nastavnik(long jmbg, string ime, string prezime, string email) : base(jmbg, ime, prezime, email)
+        public Nastavnik(long jmbg, string ime, string prezime, string email, byte[] foto) : base(jmbg, ime, prezime, email, foto)
         {
             this.jmbg = jmbg;
         }

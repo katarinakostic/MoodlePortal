@@ -12,12 +12,14 @@ namespace MoodlePortal
         public String Ime { get; set; }
         public String Prezime { get; set; }
         public String Email { get; set; }
-        public Person(long id, String ime, String prezime, String email)
+        public byte[] Fotogtafija { get; set; }
+        public Person(long id, String ime, String prezime, String email, byte[] foto)
         {
             Person_id = id;
             Ime = ime;
             Prezime = prezime;
             Email = email;
+            Fotogtafija = foto;
         }
         public Person(long id)
         {

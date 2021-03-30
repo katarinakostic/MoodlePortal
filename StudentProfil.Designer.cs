@@ -34,17 +34,16 @@ namespace MoodlePortal
             this.emailLbl = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.brindeksaLbl = new System.Windows.Forms.Label();
-            this.godinaLbl = new System.Windows.Forms.Label();
+            this.godinaUpisaLbl = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
             this.upisanaGodinaLbl = new System.Windows.Forms.Label();
             this.updatePnl = new System.Windows.Forms.Panel();
-            this.izmeniBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.updateSaveBtn = new System.Windows.Forms.Button();
+            this.godinaStudijaBox = new System.Windows.Forms.TextBox();
+            this.emailBox = new System.Windows.Forms.TextBox();
+            this.prezimeBox = new System.Windows.Forms.TextBox();
+            this.imeBox = new System.Windows.Forms.TextBox();
+            this.izmeniBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.updatePnl.SuspendLayout();
             this.SuspendLayout();
@@ -93,14 +92,14 @@ namespace MoodlePortal
             this.brindeksaLbl.TabIndex = 4;
             this.brindeksaLbl.Text = "Broj indeksa:";
             // 
-            // godinaLbl
+            // godinaUpisaLbl
             // 
-            this.godinaLbl.AutoSize = true;
-            this.godinaLbl.Location = new System.Drawing.Point(232, 202);
-            this.godinaLbl.Name = "godinaLbl";
-            this.godinaLbl.Size = new System.Drawing.Size(96, 17);
-            this.godinaLbl.TabIndex = 5;
-            this.godinaLbl.Text = "Godina upisa:";
+            this.godinaUpisaLbl.AutoSize = true;
+            this.godinaUpisaLbl.Location = new System.Drawing.Point(232, 202);
+            this.godinaUpisaLbl.Name = "godinaUpisaLbl";
+            this.godinaUpisaLbl.Size = new System.Drawing.Size(96, 17);
+            this.godinaUpisaLbl.TabIndex = 5;
+            this.godinaUpisaLbl.Text = "Godina upisa:";
             // 
             // closeBtn
             // 
@@ -124,60 +123,14 @@ namespace MoodlePortal
             // updatePnl
             // 
             this.updatePnl.Controls.Add(this.updateSaveBtn);
-            this.updatePnl.Controls.Add(this.textBox5);
-            this.updatePnl.Controls.Add(this.textBox4);
-            this.updatePnl.Controls.Add(this.textBox3);
-            this.updatePnl.Controls.Add(this.textBox2);
-            this.updatePnl.Controls.Add(this.textBox1);
+            this.updatePnl.Controls.Add(this.godinaStudijaBox);
+            this.updatePnl.Controls.Add(this.emailBox);
+            this.updatePnl.Controls.Add(this.prezimeBox);
+            this.updatePnl.Controls.Add(this.imeBox);
             this.updatePnl.Location = new System.Drawing.Point(395, 33);
             this.updatePnl.Name = "updatePnl";
             this.updatePnl.Size = new System.Drawing.Size(303, 341);
             this.updatePnl.TabIndex = 8;
-            // 
-            // izmeniBtn
-            // 
-            this.izmeniBtn.Location = new System.Drawing.Point(241, 301);
-            this.izmeniBtn.Name = "izmeniBtn";
-            this.izmeniBtn.Size = new System.Drawing.Size(75, 23);
-            this.izmeniBtn.TabIndex = 9;
-            this.izmeniBtn.Text = "IZMENI";
-            this.izmeniBtn.UseVisualStyleBackColor = true;
-            this.izmeniBtn.Click += new System.EventHandler(this.izmeniBtn_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(18, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(18, 78);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(18, 127);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 22);
-            this.textBox3.TabIndex = 2;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(18, 172);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 22);
-            this.textBox4.TabIndex = 3;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(18, 216);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 22);
-            this.textBox5.TabIndex = 4;
             // 
             // updateSaveBtn
             // 
@@ -189,6 +142,44 @@ namespace MoodlePortal
             this.updateSaveBtn.UseVisualStyleBackColor = true;
             this.updateSaveBtn.Click += new System.EventHandler(this.updateSaveBtn_Click);
             // 
+            // godinaStudijaBox
+            // 
+            this.godinaStudijaBox.Location = new System.Drawing.Point(18, 216);
+            this.godinaStudijaBox.Name = "godinaStudijaBox";
+            this.godinaStudijaBox.Size = new System.Drawing.Size(100, 22);
+            this.godinaStudijaBox.TabIndex = 4;
+            // 
+            // emailBox
+            // 
+            this.emailBox.Location = new System.Drawing.Point(18, 127);
+            this.emailBox.Name = "emailBox";
+            this.emailBox.Size = new System.Drawing.Size(100, 22);
+            this.emailBox.TabIndex = 2;
+            // 
+            // prezimeBox
+            // 
+            this.prezimeBox.Location = new System.Drawing.Point(18, 78);
+            this.prezimeBox.Name = "prezimeBox";
+            this.prezimeBox.Size = new System.Drawing.Size(100, 22);
+            this.prezimeBox.TabIndex = 1;
+            // 
+            // imeBox
+            // 
+            this.imeBox.Location = new System.Drawing.Point(18, 35);
+            this.imeBox.Name = "imeBox";
+            this.imeBox.Size = new System.Drawing.Size(100, 22);
+            this.imeBox.TabIndex = 0;
+            // 
+            // izmeniBtn
+            // 
+            this.izmeniBtn.Location = new System.Drawing.Point(241, 301);
+            this.izmeniBtn.Name = "izmeniBtn";
+            this.izmeniBtn.Size = new System.Drawing.Size(75, 23);
+            this.izmeniBtn.TabIndex = 9;
+            this.izmeniBtn.Text = "IZMENI";
+            this.izmeniBtn.UseVisualStyleBackColor = true;
+            this.izmeniBtn.Click += new System.EventHandler(this.izmeniBtn_Click);
+            // 
             // StudentProfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -198,7 +189,7 @@ namespace MoodlePortal
             this.Controls.Add(this.updatePnl);
             this.Controls.Add(this.upisanaGodinaLbl);
             this.Controls.Add(this.closeBtn);
-            this.Controls.Add(this.godinaLbl);
+            this.Controls.Add(this.godinaUpisaLbl);
             this.Controls.Add(this.brindeksaLbl);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.emailLbl);
@@ -221,16 +212,15 @@ namespace MoodlePortal
         private System.Windows.Forms.Label emailLbl;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label brindeksaLbl;
-        private System.Windows.Forms.Label godinaLbl;
+        private System.Windows.Forms.Label godinaUpisaLbl;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Label upisanaGodinaLbl;
         private System.Windows.Forms.Panel updatePnl;
         private System.Windows.Forms.Button updateSaveBtn;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox godinaStudijaBox;
+        private System.Windows.Forms.TextBox emailBox;
+        private System.Windows.Forms.TextBox prezimeBox;
+        private System.Windows.Forms.TextBox imeBox;
         private System.Windows.Forms.Button izmeniBtn;
     }
 }

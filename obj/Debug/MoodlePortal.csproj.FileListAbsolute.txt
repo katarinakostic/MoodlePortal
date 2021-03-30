@@ -1,6 +1,7 @@
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.exe.config
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.AdminForm.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.Form1.resources
+E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.KursProfil.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.NastavnikProfil.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.Properties.Resources.resources
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.StudentProfil.resources
@@ -30,4 +31,3 @@ E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csproj.CopyComplete
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.exe
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.pdb
 E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.csprojAssemblyReference.cache
-E:\c#VS\MoodlePortal\obj\Debug\MoodlePortal.KursProfil.resources

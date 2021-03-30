@@ -46,9 +46,9 @@ namespace MoodlePortal
             return exists;
         }
 
-        internal static bool Insert(long jmbg, string ime, string prezime, string email)
+        internal static bool Insert(long jmbg, string ime, string prezime, string email, byte[] foto)
         {
-            String query = String.Format("INSERT INTO nastavnik(jmbg_nastavnika, ime, prezime, email) values('{0}', '{1}','{2}', '{3}')", jmbg, ime, prezime, email);
+            String query = String.Format("INSERT INTO nastavnik(jmbg_nastavnika, ime, prezime, email, fotografija) values('{0}', '{1}','{2}', '{3}', '{4}')", jmbg, ime, prezime, email, foto);
             //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
             bool ok = false;
@@ -96,9 +96,9 @@ namespace MoodlePortal
                     String ime = rd["ime"].ToString();
                     String prezime = rd["prezime"].ToString();
                     String email = rd["email"].ToString();
-                    String podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
+                    byte[] foto = (byte[])rd["fotografija"];
                     
-                    Nastavnik n = new Nastavnik(jmbg, ime, prezime, email);
+                    Nastavnik n = new Nastavnik(jmbg, ime, prezime, email, foto);
                     nastavnici.Add(n);
                 }
 
@@ -135,7 +135,7 @@ namespace MoodlePortal
                 while (rd.Read())
                 {
                     //podaciONastavniku = "Jmbg=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-                    podaciONastavniku = new Nastavnik(Int64.Parse(rd[0].ToString()), rd[1].ToString(), rd[2].ToString(), rd[3].ToString());
+                    podaciONastavniku = new Nastavnik(Int64.Parse(rd[0].ToString()), rd[1].ToString(), rd[2].ToString(), rd[3].ToString(), (byte[])rd["fotografija"]);
                 }
 
                 rd.Close();

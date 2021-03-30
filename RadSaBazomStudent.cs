@@ -52,24 +52,28 @@ namespace MoodlePortal
             return exists;
         }
 
-        public static bool Insert(int br_indeksa, string ime, string prezime, string email)
+        public static bool Insert(Student student, byte[] foto)
         {
-            String query = String.Format("INSERT INTO studenti(br_indeksa, ime, prezime, email) values('{0}', '{1}','{2}', '{3}')", br_indeksa, ime, prezime, email);
+            String query = String.Format("INSERT INTO studenti(br_indeksa, ime, prezime, email, fotografija, godina_upisa, godina_studija) values('{0}', '{1}','{2}', '{3}', '{4}', '{5}', '{6}')", student.Person_id, student.Ime, student.Prezime, student.Email, @foto, student.godina_upisa, student.godina_studija);
             //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
             bool ok = false;
             try
             {
                 sqlcon.Open();
+           //     sqlcon.Parameters.Add(new MySqlParameter("@IMG", foto))
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
 
                 //MySqlDataReader reader = cmd.ExecuteReader();
-
+                //cmd.Parameters.Add(new MySqlParameter("@foto", foto));
+                //cmd.Parameters.Add("@foto", MySqlDbType.TinyBlob);
+                //cmd.Parameters["@foto"].Value = foto;
+                cmd.Parameters.Add(new MySqlParameter("@foto", foto));
                 cmd.ExecuteNonQuery();
                 //sqlcon.Close();
                 ok=true;
                 //reader.Close();
-
+                
             }
             catch (SqlException ex)
             {
@@ -84,6 +88,69 @@ namespace MoodlePortal
             }
             return ok;
         }
+
+        internal static bool UpdateStudent(long person_id, Dictionary<string, bool> update, string newName, string newSurname, string newEmail, int godinaStudija, ref Student student)
+        {
+            String queryName;
+            String querySurname;
+            String queryEmail;
+            String queryYear;
+            //sqlcon = DbConnection.GetConnection();
+            sqlcon = new MySqlConnection(connectionString);
+            bool ok = false;
+            try
+            {
+                sqlcon.Open();
+                //     sqlcon.Parameters.Add(new MySqlParameter("@IMG", foto))
+                if(update["ime"])
+                {
+                    queryName = String.Format("UPDATE studenti SET ime='{0}' WHERE br_indeksa='{1}'", newName, person_id);
+                    MySqlCommand cmd = new MySqlCommand(queryName, sqlcon);
+                    student.Ime = newName;
+                    cmd.ExecuteNonQuery();
+
+                }
+                if(update["prezime"])
+                {
+                    querySurname = String.Format("UPDATE studenti SET prezime='{0}' WHERE br_indeksa='{1}'", newSurname, person_id);
+                    MySqlCommand cmd = new MySqlCommand(querySurname, sqlcon);
+                    student.Prezime = newSurname;
+                    cmd.ExecuteNonQuery();
+                }
+                if (update["email"])
+                {
+                    queryEmail = String.Format("UPDATE studenti SET email='{0}' WHERE br_indeksa='{1}'", newEmail, person_id);
+                    MySqlCommand cmd = new MySqlCommand(queryEmail, sqlcon);
+                    student.Email = newEmail;
+                    cmd.ExecuteNonQuery();
+                }
+                if (update["godinaStudija"])
+                {
+                    queryYear = String.Format("UPDATE studenti SET godina_studija='{0}' WHERE br_indeksa='{1}'", godinaStudija, person_id);
+                    MySqlCommand cmd = new MySqlCommand(queryYear, sqlcon);
+                    cmd.ExecuteNonQuery();
+                }
+
+
+                //sqlcon.Close();
+                ok = true;
+                //reader.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                //Console.WriteLine("Query Executed: " + queryName);
+                //Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return ok;
+        }
+    
 
         internal static List<Student> SpisakStudenata()
         {
@@ -108,8 +175,17 @@ namespace MoodlePortal
                     String ime = rd["ime"].ToString();
                     String prezime = rd["prezime"].ToString();
                     String email = rd["email"].ToString();
+                    int godina_upisa = (int)rd["godina_upisa"];
+                    int godina_studija = (int)rd["godina_studija"];
+                    // byte[] foto=null;
 
-                    Student s = new Student(br_indeksa, ime, prezime, email);
+                    // if (!Convert.IsDBNull(rd["fotografija"]))
+                    //  {
+                    byte[] foto = (byte[])rd["fotografija"];
+                    //}
+
+
+                    Student s = new Student(br_indeksa, ime, prezime, email, foto, godina_upisa, godina_studija);
                     studenti.Add(s);
                 }
 
@@ -129,47 +205,7 @@ namespace MoodlePortal
 
             return studenti;
         }
-        /* internal static Dictionary<int, String> SpisakStudenata()
-         {
-             String query = "SELECT * FROM studenti";
-             Dictionary<int, String> studenti = new Dictionary<int, String>();
 
-             //sqlcon = DbConnection.GetConnection();
-             sqlcon = new MySqlConnection(connectionString);
-             //sqlcon = con;
-
-             try
-             {
-                 sqlcon.Open();
-                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
-
-                 //MySqlDataReader rd = cmd.ExecuteReader();
-                 MySqlDataReader rd = cmd.ExecuteReader();
-
-                 while (rd.Read())
-                 {
-                 String podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-                 studenti.Add(int.Parse(rd[0].ToString()), podaciOStudentu);
-                 //int i = 33;
-                     // studenti.Add(int.Parse(rd[0].ToString()), "m");
-             }
-
-                 rd.Close();
-             }
-             catch (SqlException ex)
-             {
-                 Console.WriteLine("Inner Exception: " + ex.Message);
-                 Console.WriteLine();
-                 Console.WriteLine("Query Executed: " + query);
-                 Console.WriteLine();
-             }
-             finally
-             {
-                 sqlcon.Close();
-             }
-
-            return studenti;
-         } */
         internal static Student podaciOStudentu(int br_indeksa)
         {
             String query = String.Format("SELECT * FROM studenti WHERE br_indeksa = '{0}' ", br_indeksa);
@@ -192,7 +228,7 @@ namespace MoodlePortal
                 while (rd.Read())
                 {
                     //podaciOStudentu = "Broj indeksa=" + rd[0].ToString() + ", " + rd[1] + " " + rd[2];
-                    podaciOStudentu = new Student(Int64.Parse(rd[0].ToString()), rd[1].ToString(), rd[2].ToString(), rd[3].ToString());
+                    podaciOStudentu = new Student(Int64.Parse(rd[0].ToString()), rd[1].ToString(), rd[2].ToString(), rd[3].ToString(), (byte[])rd["fotografija"], (int)rd["godina_upisa"], (int)rd["godina_studija"]);
                 }
 
                 rd.Close();
@@ -239,65 +275,31 @@ namespace MoodlePortal
             }
         }
 
-        //vraca tip naloga da bismo znali na koju stranu da preusmerimo nakon uspesnog logovanja
-        //1-za admina, 2-za studenta, 3-za nastavnika
-     /*   internal static int GetAccountType(String username)
+        internal static byte[] NadjiSliku(long person_id)
         {
-            //SELECT account_type FROM `login` WHERE username="admin"
-            String query = String.Format("SELECT account_type FROM `login` WHERE username='{0}'", username);
+            String query = String.Format("SELECT fotografija FROM studenti WHERE br_indeksa = '{0}' ", person_id);
+            byte[] img = null;
+            //sqlcon = DbConnection.GetConnection();
             sqlcon = new MySqlConnection(connectionString);
-            int acc_type=-1; //ako vrati -1 nije lepo izvrsena provera
+            //sqlcon = con;
+            //    try
+            //   {
+            //        sqlcon.Open();
 
             try
             {
                 sqlcon.Open();
                 MySqlCommand cmd = new MySqlCommand(query, sqlcon);
-
+                //if (sqlcon.Close())
+                //    sqlcon.Open();
                 MySqlDataReader rd = cmd.ExecuteReader();
 
-                if (rd.Read())
-                    acc_type = int.Parse(rd[0].ToString());
-
-                rd.Close();
-
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine("Inner Exception: " + ex.Message);
-                Console.WriteLine();
-                Console.WriteLine("Query Executed: " + query);
-                Console.WriteLine();
-            }
-            finally
-            {
-                sqlcon.Close();
-            }
-            return acc_type;
-        } */
-        
-     /*   internal static String getSalt(String username)
-        {
-            String salt = "";
-
-            String query = String.Format("SELECT password FROM `login` WHERE username='{0}'", username);
-            sqlcon = new MySqlConnection(connectionString);
-
-            try
-            {
-                sqlcon.Open();
-                MySqlCommand cmd = new MySqlCommand(query, sqlcon);
-
-                MySqlDataReader rd = cmd.ExecuteReader();
-
-                if (rd.Read())
+                while (rd.Read())
                 {
-                    String pass = rd[0].ToString();
-                    int len = pass.Length;
-                    salt = pass.Substring(0, 8) + pass.Substring(len - 8, 8);
+                    img = (byte[])rd[0];
                 }
 
                 rd.Close();
-
             }
             catch (SqlException ex)
             {
@@ -310,9 +312,7 @@ namespace MoodlePortal
             {
                 sqlcon.Close();
             }
-
-            return salt;
-
-        } */
+            return img;
+        }
     }
 }

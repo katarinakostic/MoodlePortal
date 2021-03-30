@@ -55,12 +55,12 @@ namespace MoodlePortal
 
             if (RadSaBazom.InsertPerson(jmbg))
             {
-                if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email))
+                if (RadSaBazomNastavnik.Insert(jmbg, ime, prezime, email, img))
                     if (RadSaBazomLogin.InsertLoginData(username, secLog.GenSaltSHA256(username), 3, jmbg))
                     {
-                        if (img != null)
-                            RadSaBazomNastavnik.sacuvajFotografiju(img, jmbg);
-                        currentTeacher = new Nastavnik(jmbg, ime, prezime, email);
+                        //if (img != null)
+                        //    RadSaBazomNastavnik.sacuvajFotografiju(img, jmbg);
+                        currentTeacher = new Nastavnik(jmbg, ime, prezime, email, img);
                         MessageBox.Show("Uspesno uneti podaci!");
                         if (!listViewNastavnici.Visible)
                             listViewNastavnici.Show();
@@ -170,6 +170,7 @@ namespace MoodlePortal
 
             ListViewItem item = listViewNastavnici.SelectedItems[0];
             currentTeacher = (Nastavnik)item.Tag;
+
 
             Form forma = new NastavnikProfil(currentTeacher);
             forma.ShowDialog();
