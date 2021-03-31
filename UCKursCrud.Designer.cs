@@ -35,7 +35,6 @@ namespace MoodlePortal
             this.deleteBtn = new System.Windows.Forms.Button();
             this.sifraDeleteTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.izborniBox = new System.Windows.Forms.TextBox();
             this.godinaStudijaBox = new System.Windows.Forms.TextBox();
             this.nazivBox = new System.Windows.Forms.TextBox();
             this.sifraKursaBox = new System.Windows.Forms.TextBox();
@@ -46,6 +45,7 @@ namespace MoodlePortal
             this.insertBtn = new System.Windows.Forms.Button();
             this.showBtn = new System.Windows.Forms.Button();
             this.listViewKurs = new System.Windows.Forms.ListView();
+            this.izborniComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // searchBtn
@@ -99,13 +99,6 @@ namespace MoodlePortal
             this.label5.Size = new System.Drawing.Size(80, 17);
             this.label5.TabIndex = 34;
             this.label5.Text = "Sifra kursa:";
-            // 
-            // izborniBox
-            // 
-            this.izborniBox.Location = new System.Drawing.Point(125, 485);
-            this.izborniBox.Name = "izborniBox";
-            this.izborniBox.Size = new System.Drawing.Size(100, 22);
-            this.izborniBox.TabIndex = 33;
             // 
             // godinaStudijaBox
             // 
@@ -195,17 +188,25 @@ namespace MoodlePortal
             this.listViewKurs.View = System.Windows.Forms.View.List;
             this.listViewKurs.SelectedIndexChanged += new System.EventHandler(this.listViewKurs_SelectedIndexChanged);
             // 
+            // izborniComboBox
+            // 
+            this.izborniComboBox.FormattingEnabled = true;
+            this.izborniComboBox.Location = new System.Drawing.Point(125, 489);
+            this.izborniComboBox.Name = "izborniComboBox";
+            this.izborniComboBox.Size = new System.Drawing.Size(100, 24);
+            this.izborniComboBox.TabIndex = 40;
+            // 
             // UCKursCrud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.izborniComboBox);
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.sifraSearchBox);
             this.Controls.Add(this.deleteBtn);
             this.Controls.Add(this.sifraDeleteTxt);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.izborniBox);
             this.Controls.Add(this.godinaStudijaBox);
             this.Controls.Add(this.nazivBox);
             this.Controls.Add(this.sifraKursaBox);
@@ -230,7 +231,6 @@ namespace MoodlePortal
         private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.TextBox sifraDeleteTxt;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox izborniBox;
         private System.Windows.Forms.TextBox godinaStudijaBox;
         private System.Windows.Forms.TextBox nazivBox;
         private System.Windows.Forms.TextBox sifraKursaBox;
@@ -241,5 +241,6 @@ namespace MoodlePortal
         private System.Windows.Forms.Button insertBtn;
         private System.Windows.Forms.Button showBtn;
         private System.Windows.Forms.ListView listViewKurs;
+        private System.Windows.Forms.ComboBox izborniComboBox;
     }
 }

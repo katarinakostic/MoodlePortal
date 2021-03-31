@@ -125,6 +125,63 @@ namespace MoodlePortal
             return ok;
         }
 
+        internal static bool Update(Dictionary<string, bool> update, string newName, int godinaStudija, byte izborni, string newCode, ref Kurs kurs)
+        {
+            //`sifra_kursa`, `naziv_kursa`, `godina_studija`, `izborni`, `pristupni_kod`
+            String queryName, queryYear, queryIzborni, queryKod;
+            sqlcon = new MySqlConnection(connectionString);
+            bool ok = false;
+            try
+            {
+                sqlcon.Open();
+                //     sqlcon.Parameters.Add(new MySqlParameter("@IMG", foto))
+                if (update["naziv_kursa"])
+                {
+                    queryName = String.Format("UPDATE kursevi SET naziv_kursa='{0}' WHERE sifra_kursa='{1}'", newName, kurs.Sifra_kursa);
+                    MySqlCommand cmd = new MySqlCommand(queryName, sqlcon);
+                    kurs.Naziv = newName;
+                    cmd.ExecuteNonQuery();
+
+                }
+                if (update["godina_studija"])
+                {
+                    queryYear = String.Format("UPDATE kursevi SET godina_studija='{0}' WHERE sifra_kursa='{1}'", godinaStudija, kurs.Sifra_kursa);
+                    MySqlCommand cmd = new MySqlCommand(queryYear, sqlcon);
+                    kurs.Godina = godinaStudija;
+                    cmd.ExecuteNonQuery();
+                }
+                if (update["izborni"])
+                {
+                    queryIzborni = String.Format("UPDATE kursevi SET izborni='{0}' WHERE sifra_kursa='{1}'", izborni, kurs.Sifra_kursa);
+                    MySqlCommand cmd = new MySqlCommand(queryIzborni, sqlcon);
+                    kurs.Izborni = izborni;
+                    cmd.ExecuteNonQuery();
+                }
+                if (update["pristupni_kod"])
+                {
+                    queryKod = String.Format("UPDATE kursevi SET pristupni_kod='{0}' WHERE sifra_kursa='{1}'", newCode, kurs.Sifra_kursa);
+                    MySqlCommand cmd = new MySqlCommand(queryKod, sqlcon);
+                    kurs.Pristupni_kod = newCode;
+                    cmd.ExecuteNonQuery();
+                }
+                ok = true;
+                //reader.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Inner Exception: " + ex.Message);
+                Console.WriteLine();
+                //Console.WriteLine("Query Executed: " + queryName);
+                //Console.WriteLine();
+            }
+            finally
+            {
+                sqlcon.Close();
+            }
+            return ok;
+        }
+
         internal static bool Obrisi(string sifra)
         {
             String query = String.Format("DELETE FROM kursevi WHERE sifra_kursa='{0}'", sifra);

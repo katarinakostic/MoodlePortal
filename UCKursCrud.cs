@@ -20,6 +20,11 @@ namespace MoodlePortal
         {
             InitializeComponent();
             this.forma = forma;
+
+            listViewKurs.Hide();
+
+            izborniComboBox.Items.Add("Da");
+            izborniComboBox.Items.Add("Ne");
         }
 
         private void LoadAll()
@@ -60,18 +65,22 @@ namespace MoodlePortal
             byte izborni;
             int godina;
 
+            if (izborniComboBox.Text.ToString().Equals("Da"))
+                izborni = 1;
+            else
+                izborni = 0;
+
             kursevi = RadSaBazomKursevi.SpisakKurseva();
             if (sifraKursaBox.Text.Length > 0)
                 sifra = sifraKursaBox.Text.ToString();
-            //if (long.TryParse(jmbgBox.Text.ToString()))
-            // jmbg = long.TryParse(jmbgBox.Text.ToString());
+
             else
             {
                 MessageBox.Show("Unesite sifru kursa!");
                 return;
             }
             naziv = nazivBox.Text.ToString();
-            izborni = byte.Parse(izborniBox.Text.ToString());
+            //izborni = byte.Parse(izborniBox.Text.ToString());
             godina = int.Parse(godinaStudijaBox.Text.ToString());
             pr_kod = Kurs.GenerateCode(8);
 
@@ -141,7 +150,9 @@ namespace MoodlePortal
                 foreach (Kurs k in kursevi)
                     if (k.Sifra_kursa == sifra)
                     {
-                        listViewKurs.Items.Add(k.Sifra_kursa + ", " + k.Naziv + ", " + k.Izborni + ", " + k.Godina.ToString() + ", " + k.Pristupni_kod);
+                        ListViewItem item = new ListViewItem(k.Sifra_kursa + ", " + k.Naziv + ", " + k.Izborni + ", " + k.Godina.ToString() + ", " + k.Pristupni_kod);
+                        item.Tag = k;
+                        listViewKurs.Items.Add(item);
                         break;
                     }
 

@@ -32,16 +32,16 @@ namespace MoodlePortal
             this.izmeniBtn = new System.Windows.Forms.Button();
             this.updatePnl = new System.Windows.Forms.Panel();
             this.updateSaveBtn = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.kodBox = new System.Windows.Forms.TextBox();
+            this.godinaBox = new System.Windows.Forms.TextBox();
+            this.nazivBox = new System.Windows.Forms.TextBox();
             this.pristupniKodLbl = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
             this.sifraKursaLbl = new System.Windows.Forms.Label();
             this.izborniLbl = new System.Windows.Forms.Label();
             this.godinaLbl = new System.Windows.Forms.Label();
             this.nazivLbl = new System.Windows.Forms.Label();
+            this.izborniComboBox = new System.Windows.Forms.ComboBox();
             this.updatePnl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,11 +57,11 @@ namespace MoodlePortal
             // 
             // updatePnl
             // 
+            this.updatePnl.Controls.Add(this.izborniComboBox);
             this.updatePnl.Controls.Add(this.updateSaveBtn);
-            this.updatePnl.Controls.Add(this.textBox5);
-            this.updatePnl.Controls.Add(this.textBox4);
-            this.updatePnl.Controls.Add(this.textBox3);
-            this.updatePnl.Controls.Add(this.textBox2);
+            this.updatePnl.Controls.Add(this.kodBox);
+            this.updatePnl.Controls.Add(this.godinaBox);
+            this.updatePnl.Controls.Add(this.nazivBox);
             this.updatePnl.Location = new System.Drawing.Point(269, 22);
             this.updatePnl.Name = "updatePnl";
             this.updatePnl.Size = new System.Drawing.Size(280, 312);
@@ -75,34 +75,28 @@ namespace MoodlePortal
             this.updateSaveBtn.TabIndex = 5;
             this.updateSaveBtn.Text = "SACUVAJ";
             this.updateSaveBtn.UseVisualStyleBackColor = true;
+            this.updateSaveBtn.Click += new System.EventHandler(this.updateSaveBtn_Click);
             // 
-            // textBox5
+            // kodBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(18, 180);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 22);
-            this.textBox5.TabIndex = 4;
+            this.kodBox.Location = new System.Drawing.Point(18, 180);
+            this.kodBox.Name = "kodBox";
+            this.kodBox.Size = new System.Drawing.Size(100, 22);
+            this.kodBox.TabIndex = 4;
             // 
-            // textBox4
+            // godinaBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(18, 133);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 22);
-            this.textBox4.TabIndex = 3;
+            this.godinaBox.Location = new System.Drawing.Point(18, 91);
+            this.godinaBox.Name = "godinaBox";
+            this.godinaBox.Size = new System.Drawing.Size(100, 22);
+            this.godinaBox.TabIndex = 2;
             // 
-            // textBox3
+            // nazivBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(18, 91);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 22);
-            this.textBox3.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(18, 46);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 1;
+            this.nazivBox.Location = new System.Drawing.Point(18, 46);
+            this.nazivBox.Name = "nazivBox";
+            this.nazivBox.Size = new System.Drawing.Size(100, 22);
+            this.nazivBox.TabIndex = 1;
             // 
             // pristupniKodLbl
             // 
@@ -159,6 +153,14 @@ namespace MoodlePortal
             this.nazivLbl.TabIndex = 10;
             this.nazivLbl.Text = "Naziv:";
             // 
+            // izborniComboBox
+            // 
+            this.izborniComboBox.FormattingEnabled = true;
+            this.izborniComboBox.Location = new System.Drawing.Point(18, 135);
+            this.izborniComboBox.Name = "izborniComboBox";
+            this.izborniComboBox.Size = new System.Drawing.Size(100, 24);
+            this.izborniComboBox.TabIndex = 41;
+            // 
             // KursProfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -186,15 +188,15 @@ namespace MoodlePortal
         private System.Windows.Forms.Button izmeniBtn;
         private System.Windows.Forms.Panel updatePnl;
         private System.Windows.Forms.Button updateSaveBtn;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox kodBox;
+        private System.Windows.Forms.TextBox godinaBox;
+        private System.Windows.Forms.TextBox nazivBox;
         private System.Windows.Forms.Label pristupniKodLbl;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Label sifraKursaLbl;
         private System.Windows.Forms.Label izborniLbl;
         private System.Windows.Forms.Label godinaLbl;
         private System.Windows.Forms.Label nazivLbl;
+        private System.Windows.Forms.ComboBox izborniComboBox;
     }
 }
